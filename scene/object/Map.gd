@@ -102,17 +102,17 @@ func connectAllSites():
 		#获取下一层level
 		var levelNext=levelList[i+1]
 		#先清理没有preSite的site
-		for j in range(level.size()):
-			var site:Site=level[j]
-			if site!=null:
-				if site.preSiteList.size()==0:
-					site.queue_free()
-					level[j]=null
+#		for j in range(level.size()):
+#			var site:Site=level[j]
+#			if site!=null:
+#				if site.preSiteList.size()==0:
+#					site.queue_free()
+#					level[j]=null
 		#遍历site，连接到下一层site
 		for j in range(level.size()):
 			var site:Site=level[j]
 			if site==null:
-				break
+				continue
 			#查看相邻的site,放入nearSiteList 相邻是指下一层的编号和这一层编号在+1 0 -1之间的
 			var nearSiteList=[]
 			if j-1>=0 && levelNext[j-1]!=null:
@@ -121,8 +121,36 @@ func connectAllSites():
 				nearSiteList.append(levelNext[j])
 			if j+1<level.size() && levelNext[j+1]!=null:
 				nearSiteList.append(levelNext[j+1])
+#			#连接所有nearSitelist
+#			for nextSite in nearSiteList:
+#				connectSite(site,nextSite)
 			
-			
+			#根据数量判断
+			if nearSiteList.size()>0:
+				#计算连接数量
+				var connectNumber=1 #给个初始值防止出问题
+				if nearSiteList.size()>=3 && randf()<0.2:
+					connectNumber=3
+				elif nearSiteList.size()>=2 && randf()<0.4:
+					connectNumber=2
+				else:
+					connectNumber=1
+				#按照connectNumber 连接
+				for k in range(connectNumber):
+					#从nearSiteList中随机取一个
+					var index=floor(rand_range(0,nearSiteList.size()))
+					var nextSite=nearSiteList[index]
+					nearSiteList.remove(index)
+					#连接
+					connectSite(site,nextSite)
+			else:
+				#没有相邻site的下一个site的情况
+				#寻找一个最近的site
+				
+				
+				
+				写到这里了
+				pass
 			
 			pass
 		
