@@ -18,3 +18,9 @@ margin_bottom = 20.0
 custom_fonts/font = ExtResource( 2 )
 text = "怪物"
 
+[node name="leftConnectPosition" type="Position2D" parent="."]
+position = Vector2( -58.8073, 0 )
+
+[node name="rightConnectPosition" type="Position2D" parent="."]
+position = Vector2( 58.0336, 0 )
+
