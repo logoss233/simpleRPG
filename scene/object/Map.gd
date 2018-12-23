@@ -11,23 +11,37 @@ var tscn_site=preload("res://scene/object/Site.tscn")
 #------属性
 var startSite:Site
 var endSite:Site
+var levelSiteList=[]  #保存所有中间点
 var levelList=[] #保存每一层(不包括起点和终点)   每一层（level）有多个site 
 #leve是array，形式 [null,site,site,null,null,site]
-#引用
+
+#---------状态
+var isPlayerMoving=false #玩家是否在移动
+
+#--------引用
 var sitePlace:Node2D
 var linePlace:Node2D
+var player:MapPlayer
 
-# Called when the node enters the scene tree for the first time.
+
+#----------------初始化-----------
 func _ready():
 	sitePlace=$Sites
 	linePlace=$Lines
-	
-	
+	player=$playerPlace/player
+	#生成节点
 	createSite()
 	connectAllSites()
+	deploySite()
+	#把玩家放到出生点
+	player.position=startSite.position
+	player.site=startSite
+	#连接信号
+	player.connect("moveComplete",self,"onPlayerMoveComplete")
 	
-	
-	pass # Replace with function body.
+	for site in sitePlace.get_children():
+		site.connect("pressed",self,"onSitePressed")
+		pass
 
 #生成地点
 func createSite():
@@ -72,6 +86,7 @@ func createSite():
 				site.mingzi="中间点"
 				#分配
 				level[index]=site
+				levelSiteList.append(site)
 				#调整位置
 				var x=(END_POSITION.x-START_POSITION.x)/(ROAD_LONG-1)*i+START_POSITION.x
 				var y=(2*ROAD_WIDTH)/5*index+START_POSITION.y-ROAD_WIDTH
@@ -86,7 +101,7 @@ func createSite():
 	sitePlace.add_child(site)
 	site.mingzi="终点"
 	site.position=END_POSITION
-	endSite=site	
+	endSite=site
 	pass
 	
 #按规则连接所有site
@@ -179,9 +194,33 @@ func connectAllSites():
 		if site!=null:
 			connectSite(site,endSite)
 	
-
-
-
+#部署地点
+func deploySite():
+	for site in levelSiteList:
+		site=site as Site
+		var r=randf()
+		if r<0.4:
+			site.mingzi="怪物"
+		elif r<0.6:
+			site.mingzi="村落"
+		elif r<0.8:
+			site.mingzi="地牢"
+		else:
+			site.mingzi="??"
+	pass
+#---------------------回调----
+func onSitePressed(site):
+	if isPlayerMoving:
+		return
+	var nextSiteList=player.site.nextSiteList as Array
+	if nextSiteList.has(site):
+		player.move(site)
+		isPlayerMoving=true
+	
+	pass
+func onPlayerMoveComplete():
+	isPlayerMoving=false
+	pass
 #--------------------辅助函数-------------
 #给两个地点连线，site1是出发点，site2是目的地
 func connectSite(site1:Site,site2:Site):

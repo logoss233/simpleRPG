@@ -21,16 +21,15 @@ func _ready():
 	$mingziButton.connect("pressed",self,"onButtonPressed")
 	
 	
-	self.connect("pressed",self,"testPressed")
+	
 	pass # Replace with function body.
 
 
 
 func onButtonPressed():
-	emit_signal("pressed",mingzi)
+	emit_signal("pressed",self)
 	
-func testPressed(mingzi):
-	print(mingzi)
+
 
 func get_leftConncetPosition():
 	return $leftConnectPosition.position+position

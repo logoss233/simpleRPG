@@ -10,18 +10,36 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Node2D",
+"class": "BattleCharacter",
+"language": "GDScript",
+"path": "res://scene/Battle/BattleCharacter.gd"
+}, {
+"base": "Node2D",
 "class": "Map",
 "language": "GDScript",
 "path": "res://scene/object/Map.gd"
+}, {
+"base": "Sprite",
+"class": "MapPlayer",
+"language": "GDScript",
+"path": "res://scene/object/MapPlayer.gd"
 }, {
 "base": "Node2D",
 "class": "Site",
 "language": "GDScript",
 "path": "res://scene/object/Site.gd"
+}, {
+"base": "Control",
+"class": "StateUI",
+"language": "GDScript",
+"path": "res://scene/Battle/StateUI.gd"
 } ]
 _global_script_class_icons={
+"BattleCharacter": "",
 "Map": "",
-"Site": ""
+"MapPlayer": "",
+"Site": "",
+"StateUI": ""
 }
 
 [application]
