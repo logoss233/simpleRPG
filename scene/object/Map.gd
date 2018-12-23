@@ -22,13 +22,14 @@ var isPlayerMoving=false #玩家是否在移动
 var sitePlace:Node2D
 var linePlace:Node2D
 var player:MapPlayer
-
+var eventPlace:Node2D
 
 #----------------初始化-----------
 func _ready():
 	sitePlace=$Sites
 	linePlace=$Lines
 	player=$playerPlace/player
+	eventPlace=$eventPlace
 	#生成节点
 	createSite()
 	connectAllSites()
@@ -219,7 +220,20 @@ func onSitePressed(site):
 	
 	pass
 func onPlayerMoveComplete():
+	#玩家走到目的地
+	#触发地点事件
+	match player.site.mingzi:
+		"怪物":
+			#遇怪战斗
+			battle()
 	isPlayerMoving=false
+	
+	
+	pass
+#--------------地点处理----
+func battle():
+	var battle=load("res://scene/Battle/Battle.tscn").instance()
+	eventPlace.add_child(battle)
 	pass
 #--------------------辅助函数-------------
 #给两个地点连线，site1是出发点，site2是目的地

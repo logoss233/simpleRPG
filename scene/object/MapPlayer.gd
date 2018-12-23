@@ -1,5 +1,5 @@
 #大地图上的玩家棋子
-extends Sprite
+extends Node2D
 class_name MapPlayer
 signal moveComplete
 

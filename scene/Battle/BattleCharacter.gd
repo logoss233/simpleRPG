@@ -25,7 +25,7 @@ var critRate=0 #暴击率
 var critPower=2 #暴击2倍伤害
 var buffList=[] #buff列表
 var skillList=[] #技能列表
-var shieldList=[] #护盾列表
+#var shieldList=[] #护盾列表
 
 #攻击间隔=1/(speed/100)    100速度时每秒攻击一次，200速度每秒攻击两次
 func get_attackInterval():
@@ -60,6 +60,9 @@ func set_red(value):
 	else:
 		$icon.modulate=Color.white
 	pass
+func set_image(image):
+	$icon.texture=image
+	
 #-------------初始化----------------
 func _ready():
 	tween=$Tween
@@ -105,10 +108,10 @@ func attack():
 	
 	pass
 #收到攻击
-func beHit(dmg):
+func beHit(dmgObj):
 	set_red(true)
 	#跳数字
-	emit_signal("jumpNumber",dmg,position)
+	emit_signal("jumpNumber",dmgObj,position)
 	
 	yield(get_tree().create_timer(0.2),"timeout")
 	set_red(false)

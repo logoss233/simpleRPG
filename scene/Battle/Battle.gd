@@ -26,6 +26,8 @@ func _ready():
 	player.def=5
 	player.speed=80
 	player.shield=50
+	player.critRate=50
+	player.set_image(load("res://image/playr.png"))
 	
 	enemy.mingzi="史莱姆"
 	enemy.face=-1
@@ -35,6 +37,8 @@ func _ready():
 	enemy.def=7
 	enemy.speed=60
 	enemy.shield=60
+	enemy.critRate=40
+	enemy.set_image(load("res://image/enemy.png"))
 	#注册信号侦听
 	player.connect("attack",self,"onAttack")
 	player.connect("jumpNumber",self,"onJumpNumber")
@@ -58,8 +62,14 @@ func onAttack(character):
 		toChara=player
 	#伤害减免
 	var dr=toChara.def/(toChara.def+100)
+	#计算暴击
+	var dmg=fromChara.atk
+	var isCrit=false
+	if randf()*100<fromChara.critRate:
+		dmg*=fromChara.critPower
+		isCrit=true
 	#实际伤害
-	var dmg=floor(fromChara.atk*(1-dr))
+	dmg=floor(dmg*(1-dr))
 	#优先扣除护盾值，再扣除血
 	if toChara.shield>0:
 		if toChara.shield>=dmg:
@@ -71,13 +81,17 @@ func onAttack(character):
 	else:
 		toChara.hp-=dmg
 	
-	#受到伤害 
-	toChara.beHit(dmg)
+	#伤害结果
+	var dmgObj={"dmg":dmg,"isCrit":isCrit}
+	#受到伤害
+	 
+	
+	toChara.beHit(dmgObj)
 	
 	print(fromChara.mingzi+"  攻击  "+toChara.mingzi)
 	print("造成了 "+String(dmg)+" 点伤害")
-func onJumpNumber(number,position):
+func onJumpNumber(dmgObj,position):
 	var jumpNumber=tscn_JumpNumber.instance()
 	jumpNumberPlace.add_child(jumpNumber)
-	jumpNumber.start(number,position)
+	jumpNumber.start(dmgObj,position)
 	pass
