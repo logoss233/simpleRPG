@@ -53,6 +53,10 @@ config/icon="res://icon.png"
 Data="*res://autoload/Data.gd"
 Game="*res://autoload/Game.gd"
 
+[debug]
+
+gdscript/warnings/enable=false
+
 [display]
 
 window/size/width=1280
@@ -62,4 +66,5 @@ window/stretch/aspect="keep"
 
 [rendering]
 
+quality/driver/driver_name="GLES2"
 environment/default_environment="res://default_env.tres"

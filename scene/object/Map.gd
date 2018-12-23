@@ -232,7 +232,7 @@ func onPlayerMoveComplete():
 	pass
 #--------------地点处理----
 func battle():
-	var battle=load("res://scene/Battle/Battle.tscn").instance()
+	var battle=preload("res://scene/Battle/Battle.tscn").instance()
 	eventPlace.add_child(battle)
 	pass
 #--------------------辅助函数-------------

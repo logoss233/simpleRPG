@@ -6,6 +6,7 @@
 [ext_resource path="res://scene/Battle/StateUI.tscn" type="PackedScene" id=4]
 
 [node name="Battle" type="Node2D"]
+editor/display_folded = true
 script = ExtResource( 1 )
 
 [node name="ColorRect" type="ColorRect" parent="."]
