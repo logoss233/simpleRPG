@@ -11,7 +11,7 @@ func _ready():
 #移动到地点
 func move(site):
 	self.site=site
-	tween.interpolate_property(self,"position",null,site.position,1,Tween.TRANS_LINEAR,Tween.EASE_IN)
+	tween.interpolate_property(self,"position",null,site.position,0.5,Tween.TRANS_LINEAR,Tween.EASE_IN)
 	tween.start()
 	yield(tween,"tween_completed")
 	emit_signal("moveComplete")

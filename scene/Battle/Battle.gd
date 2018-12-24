@@ -1,10 +1,11 @@
 #战斗系统
 extends Node2D
+class_name Battle
 
 var player:BattleCharacter
 var enemy:BattleCharacter
-var playerStateUI:StateUI
-var enemyStateUI:StateUI
+var playerStateUI
+var enemyStateUI
 
 var jumpNumberPlace:Node2D
 var tscn_JumpNumber=preload("res://scene/Battle/JumpNumber.tscn")
@@ -22,17 +23,40 @@ func _ready():
 	player.face=1
 	player.hp_max=200
 	player.hp=200
+	player.atk_base=100
 	player.atk=10
 	player.def=5
 	player.speed=80
 	player.shield=50
-	player.critRate=50
+	player.critRate_base=0
 	player.set_image(load("res://image/playr.png"))
+	var buff=load("res://model/Buff/Buff.gd").new() 
+	buff.property={
+		"atk":100,
+		"atk_percent":200
+	}
+	player.buff_append(buff)
+	var buff2=load("res://model/Buff/Buff.gd").new()
+	buff2.property={
+		"atk_percent":200
+	}
+	player.buff_append(buff2)
+	var buff3=load("res://model/Buff/Buff.gd").new()
+	buff3.property={
+		"atk":1000,
+		"speed":200,
+		"critRate":50,
+		"critPower":4
+	}
+	player.buff_append(buff3)
+	
+	
+	
 	
 	enemy.mingzi="史莱姆"
 	enemy.face=-1
-	enemy.hp_max=150
-	enemy.hp=150
+	enemy.hp_max=2000
+	enemy.hp=2000
 	enemy.atk=15
 	enemy.def=7
 	enemy.speed=60
@@ -49,10 +73,11 @@ func _ready():
 	enemyStateUI.start(enemy)
 	
 	
-	player.start()
-	enemy.start()
+	player.start(self,enemy)
+	enemy.start(self,player)
 	pass # Replace with function body.
 
+#------------回调-------------
 func onAttack(character):
 	var fromChara=character as BattleCharacter #攻击来自于
 	var toChara:BattleCharacter #受攻击对象
