@@ -12,18 +12,14 @@ class_name Buff
 #	"critPower":0.2
 #}
 var property:Dictionary={} #属性加成
+var mingzi="无名buff"
 var target #目标
+var triggerList=[] #触发器列表
 
 #附加到目标上
 func start(target):
 	self.target=target
+	for trigger in triggerList:
+		TriggerSystem.appendTrigger(trigger)
 	pass
-#附加到对象时触发
-func enter():
-	print("buff enter")
-	pass
-
-#移除时触发
-func exit():
-	print("buff exit")
-	pass
+func 

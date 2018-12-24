@@ -6,6 +6,8 @@ var player:BattleCharacter
 var enemy:BattleCharacter
 var playerStateUI
 var enemyStateUI
+var playerPropertyPanel
+var enemyPropertyPanel
 
 var jumpNumberPlace:Node2D
 var tscn_JumpNumber=preload("res://scene/Battle/JumpNumber.tscn")
@@ -17,6 +19,8 @@ func _ready():
 	enemy=$characters/enemy
 	playerStateUI=$ui/playerStateUI
 	enemyStateUI=$ui/enemyStateUI
+	playerPropertyPanel=$ui/playerPropertyPanel
+	enemyPropertyPanel=$ui/enemyPropertyPanel
 	
 	#初始化角色的参数
 	player.mingzi="勇者"
@@ -30,18 +34,24 @@ func _ready():
 	player.shield=50
 	player.critRate_base=0
 	player.set_image(load("res://image/playr.png"))
-	var buff=load("res://model/Buff/Buff.gd").new() 
+	var buff=load("res://model/Buff/Buff.gd").new()
+	buff.mingzi="攻击强化2" 
 	buff.property={
 		"atk":100,
 		"atk_percent":200
 	}
+	var trigger=load("res://model/Trigger/Trigger_Test.gd").new()
+	trigger.target=player
+	buff.triggerList.append(trigger)
 	player.buff_append(buff)
 	var buff2=load("res://model/Buff/Buff.gd").new()
+	buff2.mingzi="攻击强化1"
 	buff2.property={
 		"atk_percent":200
 	}
 	player.buff_append(buff2)
 	var buff3=load("res://model/Buff/Buff.gd").new()
+	buff3.mingzi="神之力量"
 	buff3.property={
 		"atk":1000,
 		"speed":200,
@@ -50,6 +60,53 @@ func _ready():
 	}
 	player.buff_append(buff3)
 	
+	buff=load("res://model/Buff/Buff.gd").new()
+	buff.mingzi="测试buff" 
+	buff.property={
+	}
+	player.buff_append(buff)
+	
+	buff=load("res://model/Buff/Buff.gd").new()
+	buff.mingzi="测试buff" 
+	buff.property={
+	}
+	player.buff_append(buff)
+	
+	buff=load("res://model/Buff/Buff.gd").new()
+	buff.mingzi="测试buff" 
+	buff.property={
+	}
+	player.buff_append(buff)
+	
+	buff=load("res://model/Buff/Buff.gd").new()
+	buff.mingzi="测试buff" 
+	buff.property={
+	}
+	player.buff_append(buff)
+	
+	buff=load("res://model/Buff/Buff.gd").new()
+	buff.mingzi="测试buff" 
+	buff.property={
+	}
+	player.buff_append(buff)
+	
+	buff=load("res://model/Buff/Buff.gd").new()
+	buff.mingzi="测试buff" 
+	buff.property={
+	}
+	player.buff_append(buff)
+	
+	buff=load("res://model/Buff/Buff.gd").new()
+	buff.mingzi="测试buff" 
+	buff.property={
+	}
+	player.buff_append(buff)
+	
+	buff=load("res://model/Buff/Buff.gd").new()
+	buff.mingzi="测试buff" 
+	buff.property={
+	}
+	player.buff_append(buff)
 	
 	
 	
@@ -68,10 +125,11 @@ func _ready():
 	player.connect("jumpNumber",self,"onJumpNumber")
 	enemy.connect("attack",self,"onAttack")
 	enemy.connect("jumpNumber",self,"onJumpNumber")
-	#
+	#ui初始化
 	playerStateUI.start(player)
 	enemyStateUI.start(enemy)
-	
+	playerPropertyPanel.start(player)
+	enemyPropertyPanel.start(enemy)
 	
 	player.start(self,enemy)
 	enemy.start(self,player)

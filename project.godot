@@ -70,6 +70,7 @@ config/icon="res://icon.png"
 
 Data="*res://autoload/Data.gd"
 Game="*res://autoload/Game.gd"
+TriggerSystem="*res://autoload/TriggerSystem.gd"
 
 [debug]
 

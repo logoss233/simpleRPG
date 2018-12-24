@@ -5,7 +5,11 @@ class_name BattleCharacter
 signal attack
 signal state_change
 signal jumpNumber
+signal property_change
+signal buff_change
 
+
+#-------
 var battle#战斗系统
 var oppent:BattleCharacter=null  # 对手
 #--------
@@ -106,7 +110,7 @@ func attack():
 	yield(tween,"tween_completed")
 	
 	emit_signal("attack",self)
-	
+	TriggerSystem.sendEvent("attack",self)
 	
 	tween.interpolate_property(self,"position",position,startPos,0.2,Tween.TRANS_LINEAR,Tween.EASE_IN)
 	tween.start()
@@ -136,7 +140,9 @@ func buff_append(buff):
 	#重新计算属性
 	calculateProperty()
 	#触发添加buff事件
-	buff.enter()
+	
+	#发送信号
+	emit_signal("buff_change")
 	
 #移除一个buff
 func buff_remove(buff):
@@ -144,7 +150,9 @@ func buff_remove(buff):
 	#重新计算属性
 	calculateProperty()
 	#触发移除buff事件
-	buff.exit()
+	
+	#发送信号
+	emit_signal("buff_change")
 	
 #计算属性
 func calculateProperty():
@@ -179,8 +187,19 @@ func calculateProperty():
 				"critPower":
 					_critPower+=property["critPower"]
 	atk=floor(atk_base*(1+float(_atk_percent)/100)+_atk)
+	if atk<atk_base/10:
+		atk=atk_base/10
 	def=floor(def_base*(1+_def_percent)+_def)
 	speed=floor(speed_base*(1+float(_speed_percent)/100)+_speed)
-	critRate=critRate+_critRate
+	if speed<speed_base/10:
+		speed=speed_base/10
+	critRate=critRate_base+_critRate
+	if critRate<0:
+		critRate=0
 	critPower=critPower_base+_critPower
+	if critPower<1:
+		critPower=1
+	#发送信号
+	emit_signal("property_change")
+	
 	
