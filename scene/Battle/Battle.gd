@@ -12,7 +12,7 @@ var skillUI
 
 var jumpNumberPlace:Node2D
 var tscn_JumpNumber=preload("res://scene/Battle/JumpNumber.tscn")
-
+var tscn_JumpSkillMingzi=preload("res://scene/Battle/misc/JumpSkillName.tscn")
 
 
 func _ready():
@@ -30,6 +30,8 @@ func _ready():
 	player.face=1
 	player.hp_max=200
 	player.hp=200
+	player.mp_max=200
+	player.mp=200
 	player.atk_base=100
 	player.atk=10
 	player.def_base=100
@@ -79,6 +81,15 @@ func _ready():
 	var skill2=load("res://model/Skill/Skill_DeathFinger.gd").new()
 	skill2.owner=player
 	player.skillList.append(skill2)
+	var skill3=load("res://model/Skill/Skill_Berserk.gd").new()
+	skill3.owner=player
+	player.skillList.append(skill3)
+	var skill4=load("res://model/Skill/Skill_Bloodthirsty.gd").new()
+	skill4.owner=player
+	player.skillList.append(skill4)
+	var skill5=load("res://model/Skill/Skill_GodPower.gd").new()
+	skill5.owner=player
+	player.skillList.append(skill5)
 	
 	
 	
@@ -96,8 +107,10 @@ func _ready():
 	#注册信号侦听
 	player.connect("attack",self,"onAttack")
 	player.connect("jumpNumber",self,"onJumpNumber")
+	player.connect("jumpSkillMingzi",self,"onJumpSkillMingzi")
 	enemy.connect("attack",self,"onAttack")
 	enemy.connect("jumpNumber",self,"onJumpNumber")
+	enemy.connect("jumpSkillMingzi",self,"onJumpSkillMingzi")
 	#ui初始化
 	playerStateUI.start(player)
 	enemyStateUI.start(enemy)
@@ -130,7 +143,11 @@ func onJumpNumber(dmgObj,position):
 	jumpNumberPlace.add_child(jumpNumber)
 	jumpNumber.start(dmgObj,position)
 	pass
-	
+func onJumpSkillMingzi(mingzi,position):
+	var jump=tscn_JumpSkillMingzi.instance()
+	jumpNumberPlace.add_child(jump)
+	jump.start(mingzi,position)
+	pass
 #-------------------------------
 #伤害处理
 func damageProcess(dmgObj):
@@ -143,8 +160,13 @@ func damageProcess(dmgObj):
 			dmgObj.isCrit=true
 	#如果是物理伤害，用防御减免，魔法伤害不处理
 	if dmgObj.type==0:
-		var dr=float(to.def)/(to.def+100)
-		dmgObj.dmg=floor(dmgObj.dmg*(1-dr))
+		#正防御
+		if to.def>0:
+			var dr=float(to.def)/(to.def+100)
+			dmgObj.dmg=floor(dmgObj.dmg*(1-dr))
+		elif to.def<0: #负防御  防御如果为0 不做处理
+			var ir=float(abs(to.def))/(abs(to.def)+100)
+			dmgObj.dmg=floor(dmgObj.dmg*(1+ir))
 	else:
 		pass
 	#优先扣除护盾值，再扣除血

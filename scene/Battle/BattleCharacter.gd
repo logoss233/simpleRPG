@@ -5,6 +5,7 @@ class_name BattleCharacter
 signal attack
 signal state_change
 signal jumpNumber
+signal jumpSkillMingzi
 signal property_change
 #signal buff_change
 signal buff_append
@@ -266,4 +267,5 @@ func skill_use(skill):
 	#技能进入冷却
 	skill.cd_timer=skill.cd
 	#触发技能效果
+	emit_signal("jumpSkillMingzi",skill.mingzi,position)
 	skill.use()
