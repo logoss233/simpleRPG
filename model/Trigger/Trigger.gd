@@ -3,7 +3,8 @@ extends Reference
 class_name Trigger
 
 var character #指定一名角色
-var item #所有者 可以是物品 技能 buff
+var owner
+var target
 #事件
 var event=""
 #条件 返回true或者false

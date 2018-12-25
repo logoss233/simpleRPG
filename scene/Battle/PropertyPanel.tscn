@@ -3,13 +3,11 @@
 [ext_resource path="res://scene/Battle/PropertyPanel.gd" type="Script" id=1]
 [ext_resource path="res://font/NotoSansHans-Medium.otf" type="DynamicFontData" id=2]
 [ext_resource path="res://font/font_uiState.tres" type="DynamicFont" id=3]
-[ext_resource path="res://scene/Battle/misc/buffView.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scene/Battle/misc/BuffView.tscn" type="PackedScene" id=4]
 
 [sub_resource type="DynamicFont" id=1]
 
 size = 23
-use_mipmaps = false
-use_filter = false
 font_data = ExtResource( 2 )
 
 [node name="PropertyPanel" type="Control"]
@@ -111,83 +109,44 @@ custom_fonts/font = ExtResource( 3 )
 text = "暴击倍率:"
 
 [node name="Label7" type="Label" parent="Panel"]
-margin_left = 21.0
-margin_top = 193.0
-margin_right = 98.0
-margin_bottom = 212.0
+margin_left = 18.0
+margin_top = 190.0
+margin_right = 191.0
+margin_bottom = 209.0
 custom_fonts/font = ExtResource( 3 )
-text = "buff："
+text = "---------状态----------"
+align = 1
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Panel"]
-margin_left = 86.0
-margin_top = 193.0
-margin_right = 199.0
+margin_left = 14.0
+margin_top = 216.0
+margin_right = 197.0
 margin_bottom = 359.0
 
 [node name="buffPlace" type="VBoxContainer" parent="Panel/ScrollContainer"]
 editor/display_folded = true
-margin_right = 72.0
-margin_bottom = 272.0
+margin_right = 164.0
+margin_bottom = 44.0
 
-[node name="Label8" parent="Panel/ScrollContainer/buffPlace" instance=ExtResource( 4 )]
-margin_right = 72.0
+[node name="BuffView" parent="Panel/ScrollContainer/buffPlace" instance=ExtResource( 4 )]
+margin_bottom = 20.0
 
-[node name="Label11" parent="Panel/ScrollContainer/buffPlace" instance=ExtResource( 4 )]
-margin_top = 23.0
-margin_right = 72.0
-margin_bottom = 42.0
+[node name="BuffView2" parent="Panel/ScrollContainer/buffPlace" instance=ExtResource( 4 )]
+margin_top = 24.0
+margin_bottom = 44.0
 
-[node name="Label12" parent="Panel/ScrollContainer/buffPlace" instance=ExtResource( 4 )]
-margin_top = 46.0
-margin_right = 72.0
-margin_bottom = 65.0
+[node name="Panel2" type="Panel" parent="."]
+visible = false
+margin_left = 31.0
+margin_top = 272.0
+margin_right = 236.0
+margin_bottom = 406.0
 
-[node name="Label13" parent="Panel/ScrollContainer/buffPlace" instance=ExtResource( 4 )]
-margin_top = 69.0
-margin_right = 72.0
-margin_bottom = 88.0
-
-[node name="Label14" parent="Panel/ScrollContainer/buffPlace" instance=ExtResource( 4 )]
-margin_top = 92.0
-margin_right = 72.0
-margin_bottom = 111.0
-
-[node name="Label15" parent="Panel/ScrollContainer/buffPlace" instance=ExtResource( 4 )]
-margin_top = 115.0
-margin_right = 72.0
-margin_bottom = 134.0
-
-[node name="Label16" parent="Panel/ScrollContainer/buffPlace" instance=ExtResource( 4 )]
-margin_top = 138.0
-margin_right = 72.0
-margin_bottom = 157.0
-
-[node name="Label17" parent="Panel/ScrollContainer/buffPlace" instance=ExtResource( 4 )]
-margin_top = 161.0
-margin_right = 72.0
-margin_bottom = 180.0
-
-[node name="Label18" parent="Panel/ScrollContainer/buffPlace" instance=ExtResource( 4 )]
-margin_top = 184.0
-margin_right = 72.0
-margin_bottom = 203.0
-
-[node name="Label19" parent="Panel/ScrollContainer/buffPlace" instance=ExtResource( 4 )]
-margin_top = 207.0
-margin_right = 72.0
-margin_bottom = 226.0
-
-[node name="Label9" type="Label" parent="Panel/ScrollContainer/buffPlace"]
-margin_top = 230.0
-margin_right = 72.0
-margin_bottom = 249.0
+[node name="Label" type="Label" parent="Panel2"]
+anchor_right = 1.0
+anchor_bottom = 1.0
 custom_fonts/font = ExtResource( 3 )
-text = "攻击增强"
-
-[node name="Label10" type="Label" parent="Panel/ScrollContainer/buffPlace"]
-margin_top = 253.0
-margin_right = 72.0
-margin_bottom = 272.0
-custom_fonts/font = ExtResource( 3 )
-text = "固守"
+text = "这是一个buff
+这是一个buff 这是一个buff 这是一个buff "
+autowrap = true
 

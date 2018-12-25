@@ -23,25 +23,29 @@ func _ready():
 	enemyPropertyPanel=$ui/enemyPropertyPanel
 	
 	#初始化角色的参数
-	player.mingzi="勇者"
+	player.mingzi="勇者小队"
 	player.face=1
 	player.hp_max=200
 	player.hp=200
 	player.atk_base=100
 	player.atk=10
+	player.def_base=100
 	player.def=5
 	player.speed=80
 	player.shield=50
 	player.critRate_base=0
 	player.set_image(load("res://image/playr.png"))
 	var buff=load("res://model/Buff/Buff.gd").new()
-	buff.mingzi="攻击强化2" 
+	buff.mingzi="攻击降低" 
+	buff.isShow=true
+	buff.life=10
 	buff.property={
 		"atk":100,
 		"atk_percent":200
 	}
 	var trigger=load("res://model/Trigger/Trigger_Test.gd").new()
 	trigger.target=player
+	trigger.owner=buff
 	buff.triggerList.append(trigger)
 	player.buff_append(buff)
 	var buff2=load("res://model/Buff/Buff.gd").new()
@@ -51,6 +55,7 @@ func _ready():
 	}
 	player.buff_append(buff2)
 	var buff3=load("res://model/Buff/Buff.gd").new()
+	buff3.isShow=true
 	buff3.mingzi="神之力量"
 	buff3.property={
 		"atk":1000,
@@ -115,7 +120,8 @@ func _ready():
 	enemy.hp_max=2000
 	enemy.hp=2000
 	enemy.atk=15
-	enemy.def=7
+	enemy.def_base=100
+	enemy.def=100
 	enemy.speed=60
 	enemy.shield=60
 	enemy.critRate=40
@@ -144,7 +150,7 @@ func onAttack(character):
 	else:
 		toChara=player
 	#伤害减免
-	var dr=toChara.def/(toChara.def+100)
+	var dr=float(toChara.def)/(toChara.def+100)
 	#计算暴击
 	var dmg=fromChara.atk
 	var isCrit=false
@@ -171,8 +177,6 @@ func onAttack(character):
 	
 	toChara.beHit(dmgObj)
 	
-	print(fromChara.mingzi+"  攻击  "+toChara.mingzi)
-	print("造成了 "+String(dmg)+" 点伤害")
 func onJumpNumber(dmgObj,position):
 	var jumpNumber=tscn_JumpNumber.instance()
 	jumpNumberPlace.add_child(jumpNumber)

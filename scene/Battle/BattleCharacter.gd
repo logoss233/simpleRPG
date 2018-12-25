@@ -6,7 +6,9 @@ signal attack
 signal state_change
 signal jumpNumber
 signal property_change
-signal buff_change
+#signal buff_change
+signal buff_append
+signal buff_remove
 
 
 #-------
@@ -41,8 +43,10 @@ var skillList=[] #技能列表
 
 #攻击间隔=1/(speed/100)    100速度时每秒攻击一次，200速度每秒攻击两次
 func get_attackInterval():
-	  return 1.0/(float(speed)/100)
-var attackTimer=0 #攻击间隔计时
+	return 100 #默认100
+	
+	  #return 1.0/(float(speed)/100)
+var attackTimer=100 #攻击间隔计时
 
 var state=-1 setget set_state#状态 0等待 1攻击
 
@@ -94,7 +98,7 @@ func start(battle,oppent):
 func _process(delta):
 	match state:
 		0:  #等待状态
-			attackTimer-=delta
+			attackTimer-=delta*speed
 			if attackTimer<=0:
 			#攻击
 				attack()
@@ -102,17 +106,25 @@ func _process(delta):
 			
 			
 			pass
+	#更新buff持续时间
+	for buff in buffList:
+		buff.life-=delta
+		if buff.life<=0:
+			#移除buff
+			buff_remove(buff)
 	
 func attack():
 	set_state(1) #切换到攻击状态
-	tween.interpolate_property(self,"position",position,position+Vector2(50,0)*face,0.2,Tween.TRANS_LINEAR,Tween.EASE_IN)
+	#动画速度  初始0.4 每增加100速度减少50% 
+	var animationTime=0.4*(1-float(speed)/(speed+100))
+	tween.interpolate_property(self,"position",position,position+Vector2(50,0)*face,animationTime,Tween.TRANS_LINEAR,Tween.EASE_IN)
 	tween.start()
 	yield(tween,"tween_completed")
 	
 	emit_signal("attack",self)
 	TriggerSystem.sendEvent("attack",self)
 	
-	tween.interpolate_property(self,"position",position,startPos,0.2,Tween.TRANS_LINEAR,Tween.EASE_IN)
+	tween.interpolate_property(self,"position",position,startPos,animationTime,Tween.TRANS_LINEAR,Tween.EASE_IN)
 	tween.start()
 	yield(tween,"tween_completed")
 	#重置攻击计时
@@ -135,25 +147,51 @@ func beHit(dmgObj):
 #---------------功能-----
 #添加一个buff
 func buff_append(buff):
+	#判断是否有一样的buff了
+	for bf in buffList:
+		if buff.mingzi==bf.mingzi:
+			match buff.addType:
+				"single":
+					pass #不处理
+				"cover": #覆盖
+					bf.life=buff.life #重置时间就行了
+					return
+				"increase": #叠加层数
+					bf.number+=1
+					if bf.number>=bf.number_max:
+						bf.number=bf.number_max
+					bf.life=buff.life
+					buff.connect("property_change",self,"onBuff_property_change")
+					return
+	
 	buffList.append(buff)
 	buff.start(self)
 	#重新计算属性
 	calculateProperty()
 	#触发添加buff事件
 	
+	#连接信号
+	buff.connect("property_change",self,"onBuff_property_change")
 	#发送信号
-	emit_signal("buff_change")
+	
+	emit_signal("buff_append",buff)
 	
 #移除一个buff
 func buff_remove(buff):
 	buffList.erase(buff)
+	buff.end()
 	#重新计算属性
 	calculateProperty()
 	#触发移除buff事件
 	
 	#发送信号
-	emit_signal("buff_change")
-	
+	emit_signal("buff_remove",buff)
+#侦听到buff属性改变了
+func onBuff_property_change():
+	#重新计算属性
+	calculateProperty()
+	pass
+
 #计算属性
 func calculateProperty():
 	#属性附加值

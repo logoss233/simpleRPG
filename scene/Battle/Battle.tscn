@@ -11,9 +11,9 @@ script = ExtResource( 1 )
 
 [node name="ColorRect" type="ColorRect" parent="."]
 margin_left = -25.0
-margin_top = -11.0
+margin_top = -13.0
 margin_right = 1281.0
-margin_bottom = 738.0
+margin_bottom = 736.0
 color = Color( 0.52549, 0.596078, 0.521569, 1 )
 
 [node name="characters" type="Node2D" parent="."]
@@ -27,6 +27,7 @@ position = Vector2( 874.271, 409.248 )
 [node name="jumpNumberPlace" type="Node2D" parent="."]
 
 [node name="ui" type="Control" parent="."]
+editor/display_folded = true
 margin_right = 40.0
 margin_bottom = 40.0
 __meta__ = {

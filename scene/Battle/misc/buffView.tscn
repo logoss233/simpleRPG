@@ -1,10 +1,36 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://font/font_uiState.tres" type="DynamicFont" id=1]
+[ext_resource path="res://scene/Battle/misc/BuffView.gd" type="Script" id=1]
+[ext_resource path="res://font/font_uiState.tres" type="DynamicFont" id=2]
 
-[node name="Label8" type="Label"]
-margin_right = 112.0
-margin_bottom = 19.0
-custom_fonts/font = ExtResource( 1 )
-text = "嗜血"
+[node name="BuffView" type="Button"]
+margin_right = 164.0
+margin_bottom = 24.0
+text = "                                      "
+script = ExtResource( 1 )
+
+[node name="lifeLabel" type="Label" parent="."]
+margin_left = 121.0
+margin_top = 3.0
+margin_right = 161.0
+margin_bottom = 22.0
+custom_fonts/font = ExtResource( 2 )
+text = "10s"
+align = 2
+
+[node name="numberLabel" type="Label" parent="."]
+margin_left = 88.0
+margin_top = 3.0
+margin_right = 128.0
+margin_bottom = 22.0
+custom_fonts/font = ExtResource( 2 )
+text = "*2"
+
+[node name="mingziLabel" type="Label" parent="."]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 74.0
+margin_bottom = 21.0
+custom_fonts/font = ExtResource( 2 )
+text = "攻击强化"
 

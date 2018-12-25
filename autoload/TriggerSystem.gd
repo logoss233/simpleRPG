@@ -6,10 +6,11 @@ var triggerList=[]
 
 func appendTrigger(trigger):
 	triggerList.append(trigger)
-	pass
 func removeTrigger(trigger):
-	triggerList.erase(trigger)
-	pass
+	if hasTrigger(trigger):
+		triggerList.erase(trigger)
+func hasTrigger(trigger):
+	return triggerList.has(trigger)
 
 func sendEvent(eventName,eventArg):
 	#筛选出符合条件的trigger

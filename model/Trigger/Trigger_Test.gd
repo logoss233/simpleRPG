@@ -12,10 +12,6 @@ func condition(eventArg):
 	pass
 func action(eventArg):
 	#每次攻击减少100攻击力
-	var buff=load("res://model/Buff/Buff.gd").new()
-	buff.property={
-		"atk":-100
-		}
-	var player=eventArg as BattleCharacter
-	target.buff_append(buff)
+	#print("owner:",owner.mingzi)
+	owner.increase_property("atk",-100)
 	pass
