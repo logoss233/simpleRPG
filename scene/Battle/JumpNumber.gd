@@ -12,10 +12,14 @@ func _ready():
 
 func start(dmgObj,pos:Vector2):
 	numberLabel.text=String(dmgObj.dmg)
+	#暴击伤害显示为红色
 	if dmgObj.isCrit:
 		scale=Vector2(2,2)
 		modulate=Color.red
 	position=pos
+	#魔法伤害显示为黄色
+	if dmgObj.type==1:
+		modulate=Color.yellow
 	
 	pass
 func _process(delta):

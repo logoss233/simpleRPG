@@ -37,8 +37,8 @@ var critRate=0 #暴击率
 var critPower_base=2 #基础暴击倍率
 var critPower=2 #暴击2倍伤害
 #
-var buffList=[] #buff列表
-var skillList=[] #技能列表
+var buffList=[] #buff列表 战斗中添加进去
+var skillList=[] #技能列表 战斗开始就已经存在技能
 #var shieldList=[] #护盾列表
 
 #攻击间隔=1/(speed/100)    100速度时每秒攻击一次，200速度每秒攻击两次
@@ -87,6 +87,8 @@ func _ready():
 func start(battle,oppent):
 	self.battle=battle
 	self.oppent=oppent
+	#初始化技能
+	skill_init()
 	#重置攻击计时
 	attackTimer=get_attackInterval()
 	startPos=position
@@ -112,6 +114,12 @@ func _process(delta):
 		if buff.life<=0:
 			#移除buff
 			buff_remove(buff)
+	#更新技能cd
+	for skill in skillList:
+		if skill.cd_timer>0:
+			skill.cd_timer-=delta
+		if skill.cd_timer<0:
+			skill.cd_timer=0
 	
 func attack():
 	set_state(1) #切换到攻击状态
@@ -121,7 +129,7 @@ func attack():
 	tween.start()
 	yield(tween,"tween_completed")
 	
-	emit_signal("attack",self)
+	emit_signal("attack",self,oppent)
 	TriggerSystem.sendEvent("attack",self)
 	
 	tween.interpolate_property(self,"position",position,startPos,animationTime,Tween.TRANS_LINEAR,Tween.EASE_IN)
@@ -240,4 +248,22 @@ func calculateProperty():
 	#发送信号
 	emit_signal("property_change")
 	
-	
+#初始化技能
+func skill_init():
+	#读取技能列表，把触发器添加到触发器系统
+	for skill in skillList:
+		for trigger in skill.triggerList:
+			TriggerSystem.appendTrigger(trigger)
+	pass
+#使用技能
+func skill_use(skill):
+	#检测cd和消耗
+	if skill.cd_timer>0 ||skill.cost>mp:
+		return
+	#使用技能
+	#减少魔法值
+	self.mp-=skill.cost
+	#技能进入冷却
+	skill.cd_timer=skill.cd
+	#触发技能效果
+	skill.use()

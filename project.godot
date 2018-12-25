@@ -39,6 +39,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scene/object/Site.gd"
 }, {
+"base": "Reference",
+"class": "Skill",
+"language": "GDScript",
+"path": "res://model/Skill/Skill.gd"
+}, {
 "base": "Control",
 "class": "StateUI",
 "language": "GDScript",
@@ -56,6 +61,7 @@ _global_script_class_icons={
 "Map": "",
 "MapPlayer": "",
 "Site": "",
+"Skill": "",
 "StateUI": "",
 "Trigger": ""
 }

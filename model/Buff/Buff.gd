@@ -17,7 +17,7 @@ signal number_change
 #}
 var property:Dictionary={} #属性加成
 var mingzi="无名buff"
-var target #目标
+var target #目标，附加时指定
 var triggerList=[] #触发器列表
 var life=3 #持续时间 单位秒
 var description="这是一个buff"

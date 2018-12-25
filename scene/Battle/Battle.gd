@@ -8,9 +8,12 @@ var playerStateUI
 var enemyStateUI
 var playerPropertyPanel
 var enemyPropertyPanel
+var skillUI
 
 var jumpNumberPlace:Node2D
 var tscn_JumpNumber=preload("res://scene/Battle/JumpNumber.tscn")
+
+
 
 func _ready():
 	jumpNumberPlace=$jumpNumberPlace
@@ -21,7 +24,7 @@ func _ready():
 	enemyStateUI=$ui/enemyStateUI
 	playerPropertyPanel=$ui/playerPropertyPanel
 	enemyPropertyPanel=$ui/enemyPropertyPanel
-	
+	skillUI=$ui/SkillUI
 	#初始化角色的参数
 	player.mingzi="勇者小队"
 	player.face=1
@@ -35,83 +38,47 @@ func _ready():
 	player.shield=50
 	player.critRate_base=0
 	player.set_image(load("res://image/playr.png"))
-	var buff=load("res://model/Buff/Buff.gd").new()
-	buff.mingzi="攻击降低" 
-	buff.isShow=true
-	buff.life=10
-	buff.property={
-		"atk":100,
-		"atk_percent":200
-	}
-	var trigger=load("res://model/Trigger/Trigger_Test.gd").new()
-	trigger.target=player
-	trigger.owner=buff
-	buff.triggerList.append(trigger)
-	player.buff_append(buff)
-	var buff2=load("res://model/Buff/Buff.gd").new()
-	buff2.mingzi="攻击强化1"
-	buff2.property={
-		"atk_percent":200
-	}
-	player.buff_append(buff2)
-	var buff3=load("res://model/Buff/Buff.gd").new()
-	buff3.isShow=true
-	buff3.mingzi="神之力量"
-	buff3.property={
-		"atk":1000,
-		"speed":200,
-		"critRate":50,
-		"critPower":4
-	}
-	player.buff_append(buff3)
-	
-	buff=load("res://model/Buff/Buff.gd").new()
-	buff.mingzi="测试buff" 
-	buff.property={
-	}
-	player.buff_append(buff)
-	
-	buff=load("res://model/Buff/Buff.gd").new()
-	buff.mingzi="测试buff" 
-	buff.property={
-	}
-	player.buff_append(buff)
-	
-	buff=load("res://model/Buff/Buff.gd").new()
-	buff.mingzi="测试buff" 
-	buff.property={
-	}
-	player.buff_append(buff)
-	
-	buff=load("res://model/Buff/Buff.gd").new()
-	buff.mingzi="测试buff" 
-	buff.property={
-	}
-	player.buff_append(buff)
-	
-	buff=load("res://model/Buff/Buff.gd").new()
-	buff.mingzi="测试buff" 
-	buff.property={
-	}
-	player.buff_append(buff)
-	
-	buff=load("res://model/Buff/Buff.gd").new()
-	buff.mingzi="测试buff" 
-	buff.property={
-	}
-	player.buff_append(buff)
-	
-	buff=load("res://model/Buff/Buff.gd").new()
-	buff.mingzi="测试buff" 
-	buff.property={
-	}
-	player.buff_append(buff)
-	
-	buff=load("res://model/Buff/Buff.gd").new()
-	buff.mingzi="测试buff" 
-	buff.property={
-	}
-	player.buff_append(buff)
+#	var buff=load("res://model/Buff/Buff.gd").new()
+#	buff.mingzi="攻击降低" 
+#	buff.isShow=true
+#	buff.life=10
+#	buff.property={
+#		"atk":100,
+#		"atk_percent":200
+#	}
+#	var trigger=load("res://model/Trigger/Trigger_Test.gd").new()
+#	trigger.target=player
+#	trigger.owner=buff
+#	buff.triggerList.append(trigger)
+#	player.buff_append(buff)
+#	var buff2=load("res://model/Buff/Buff.gd").new()
+#	buff2.mingzi="攻击强化1"
+#	buff2.property={
+#		"atk_percent":200
+#	}
+#	player.buff_append(buff2)
+#	var buff3=load("res://model/Buff/Buff.gd").new()
+#	buff3.isShow=true
+#	buff3.mingzi="神之力量"
+#	buff3.property={
+#		"atk":1000,
+#		"speed":200,
+#		"critRate":50,
+#		"critPower":4
+#	}
+#	player.buff_append(buff3)
+#
+#	buff=load("res://model/Buff/Buff.gd").new()
+#	buff.mingzi="测试buff" 
+#	buff.property={
+#	}
+	#test
+	var skill=load("res://model/Skill/Skill_PowerUp.gd").new()
+	skill.owner=player
+	player.skillList.append(skill)
+	var skill2=load("res://model/Skill/Skill_DeathFinger.gd").new()
+	skill2.owner=player
+	player.skillList.append(skill2)
 	
 	
 	
@@ -136,49 +103,64 @@ func _ready():
 	enemyStateUI.start(enemy)
 	playerPropertyPanel.start(player)
 	enemyPropertyPanel.start(enemy)
+	skillUI.start(player)
+	
 	
 	player.start(self,enemy)
 	enemy.start(self,player)
 	pass # Replace with function body.
 
 #------------回调-------------
-func onAttack(character):
-	var fromChara=character as BattleCharacter #攻击来自于
-	var toChara:BattleCharacter #受攻击对象
-	if character==player:
-		toChara=enemy
-	else:
-		toChara=player
-	#伤害减免
-	var dr=float(toChara.def)/(toChara.def+100)
-	#计算暴击
-	var dmg=fromChara.atk
-	var isCrit=false
-	if randf()*100<fromChara.critRate:
-		dmg*=fromChara.critPower
-		isCrit=true
-	#实际伤害
-	dmg=floor(dmg*(1-dr))
-	#优先扣除护盾值，再扣除血
-	if toChara.shield>0:
-		if toChara.shield>=dmg:
-			toChara.shield-=dmg
-		else:
-			var left=dmg-toChara.shield
-			toChara.shield=0
-			toChara.hp-=left
-	else:
-		toChara.hp-=dmg
-	
-	#伤害结果
-	var dmgObj={"dmg":dmg,"isCrit":isCrit}
-	#受到伤害
-	 
-	
-	toChara.beHit(dmgObj)
+func onAttack(fromChara,toChara):
+	#生成一个dmgObj
+	var dmgObj={
+		"from":fromChara, # 伤害来源
+		"to":toChara,     # 伤害目标
+		"dmg":fromChara.atk, #伤害值
+		"isCrit":false, #是否是暴击伤害
+		"canCrit":true,  #该伤害能否被暴击
+		"type":0,       #类型 0是物理伤害 1是魔法伤害
+		"rebound":true  #这个伤害能不能被反弹
+		}
+	damageProcess(dmgObj)
+
 	
 func onJumpNumber(dmgObj,position):
 	var jumpNumber=tscn_JumpNumber.instance()
 	jumpNumberPlace.add_child(jumpNumber)
 	jumpNumber.start(dmgObj,position)
 	pass
+	
+#-------------------------------
+#伤害处理
+func damageProcess(dmgObj):
+	var from=dmgObj.from
+	var to=dmgObj.to
+	#计算暴击
+	if dmgObj.canCrit:
+		if randf()*100<from.critRate:
+			dmgObj.dmg*=from.critPower
+			dmgObj.isCrit=true
+	#如果是物理伤害，用防御减免，魔法伤害不处理
+	if dmgObj.type==0:
+		var dr=float(to.def)/(to.def+100)
+		dmgObj.dmg=floor(dmgObj.dmg*(1-dr))
+	else:
+		pass
+	#优先扣除护盾值，再扣除血
+	if to.shield>0:
+		if to.shield>=dmgObj.dmg:
+			to.shield-=dmgObj.dmg
+		else:
+			var left=dmgObj.dmg-to.shield
+			to.shield=0
+			to.hp-=left
+	else:
+		to.hp-=dmgObj.dmg
+	
+	#受到伤害
+	to.beHit(dmgObj)
+	
+	pass
+	
+	

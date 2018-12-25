@@ -1,7 +1,7 @@
 extends Button
 
 var buff
-var isStart
+var isStart=false
 
 var mingziLabel
 var numberLabel
