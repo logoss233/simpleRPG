@@ -17,12 +17,22 @@ _global_script_classes=[ {
 "base": "Node2D",
 "class": "BattleCharacter",
 "language": "GDScript",
-"path": "res://scene/Battle/BattleCharacter.gd"
+"path": "res://scene/Battle/BattleCharacter/BattleCharacter.gd"
+}, {
+"base": "Node2D",
+"class": "BattlePlayer",
+"language": "GDScript",
+"path": "res://scene/Battle/BattleCharacter/BattlePlayer.gd"
 }, {
 "base": "Reference",
 "class": "Buff",
 "language": "GDScript",
 "path": "res://model/Buff/Buff.gd"
+}, {
+"base": "Reference",
+"class": "DmgObj",
+"language": "GDScript",
+"path": "res://model/EventArg/DmgObj.gd"
 }, {
 "base": "Node2D",
 "class": "Map",
@@ -34,6 +44,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scene/object/MapPlayer.gd"
 }, {
+"base": "Reference",
+"class": "Role",
+"language": "GDScript",
+"path": "res://model/Role/Role.gd"
+}, {
+"base": "Reference",
+"class": "Role_Hero",
+"language": "GDScript",
+"path": "res://model/Role/Role_Hero.gd"
+}, {
 "base": "Node2D",
 "class": "Site",
 "language": "GDScript",
@@ -44,26 +64,54 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://model/Skill/Skill.gd"
 }, {
+"base": "Reference",
+"class": "Skill_Crit",
+"language": "GDScript",
+"path": "res://model/Skill/Skill_Crit.gd"
+}, {
 "base": "Control",
 "class": "StateUI",
 "language": "GDScript",
 "path": "res://scene/Battle/StateUI.gd"
 }, {
 "base": "Reference",
+"class": "Team",
+"language": "GDScript",
+"path": "res://model/Team/Team.gd"
+}, {
+"base": "Reference",
 "class": "Trigger",
 "language": "GDScript",
 "path": "res://model/Trigger/Trigger.gd"
+}, {
+"base": "Reference",
+"class": "Trigger_Crit",
+"language": "GDScript",
+"path": "res://model/Trigger/Trigger_Crit.gd"
+}, {
+"base": "Reference",
+"class": "Trigger_Dodge",
+"language": "GDScript",
+"path": "res://model/Trigger/Trigger_Dodge.gd"
 } ]
 _global_script_class_icons={
 "Battle": "",
 "BattleCharacter": "",
+"BattlePlayer": "",
 "Buff": "",
+"DmgObj": "",
 "Map": "",
 "MapPlayer": "",
+"Role": "",
+"Role_Hero": "",
 "Site": "",
 "Skill": "",
+"Skill_Crit": "",
 "StateUI": "",
-"Trigger": ""
+"Team": "",
+"Trigger": "",
+"Trigger_Crit": "",
+"Trigger_Dodge": ""
 }
 
 [application]
@@ -77,6 +125,8 @@ config/icon="res://icon.png"
 Data="*res://autoload/Data.gd"
 Game="*res://autoload/Game.gd"
 TriggerSystem="*res://autoload/TriggerSystem.gd"
+DmgObjFactory="*res://autoload/DmgObjFactory.gd"
+Global="*res://autoload/Global.gd"
 
 [debug]
 

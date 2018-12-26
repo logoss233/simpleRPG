@@ -2,7 +2,8 @@ extends Button
 
 var buff
 var isStart=false
-
+var isMouseOn=false
+#--
 var mingziLabel
 var numberLabel
 var lifeLabel
@@ -19,7 +20,8 @@ func start(buff):
 	set_life(buff.life)
 	
 	buff.connect("number_change",self,"on_number_change")
-	
+	self.connect("mouse_entered",self,"onMouseEnter")
+	self.connect("mouse_exited",self,"onMouseExit")
 	isStart=true
 	
 	pass
@@ -40,4 +42,21 @@ func set_life(life):
 func on_number_change():
 	set_number(buff.number)
 	
-	
+#-----自身回调-----
+func _exit_tree():
+	if isMouseOn:
+		onMouseExit()
+	pass
+
+func onMouseEnter():
+	Global.battle.description_enter(buff.description)
+	isMouseOn=true
+	pass
+func onMouseExit():
+	isMouseOn=false
+	Global.battle.description_exit()
+	pass
+func _gui_input(event):
+	if event is InputEventMouse:
+		Global.battle.description_set_pos(event.global_position)
+	pass

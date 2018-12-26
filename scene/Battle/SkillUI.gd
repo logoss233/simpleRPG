@@ -22,7 +22,9 @@ func skill_init():
 	for child in children:
 		child.queue_free()
 	for skill in character.skillList:
-		skill_append(skill)
+		#只显示主动技能
+		if skill.type==1:
+			skill_append(skill)
 	pass
 func skill_append(skill):
 	var skillView=tscn_skillView.instance()

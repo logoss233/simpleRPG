@@ -6,6 +6,7 @@ signal attack
 signal state_change
 signal jumpNumber
 signal jumpSkillMingzi
+signal jumpMiss
 signal property_change
 #signal buff_change
 signal buff_append
@@ -33,14 +34,10 @@ var speed_base=100 #攻击速度
 var speed=100
 var def_base=10
 var def=10
-var critRate_base=0 #基础暴击率
-var critRate=0 #暴击率
-var critPower_base=2 #基础暴击倍率
-var critPower=2 #暴击2倍伤害
-#
+
 var buffList=[] #buff列表 战斗中添加进去
 var skillList=[] #技能列表 战斗开始就已经存在技能
-#var shieldList=[] #护盾列表
+
 
 #攻击间隔=1/(speed/100)    100速度时每秒攻击一次，200速度每秒攻击两次
 func get_attackInterval():
@@ -63,9 +60,13 @@ func set_state(value):
 	pass
 func set_hp(value):
 	hp=value
+	if hp>hp_max:
+		hp=hp_max
 	emit_signal("state_change")
 func set_mp(value):
 	mp=value
+	if mp>mp_max:
+		mp=mp_max
 	emit_signal("state_change")
 func set_shield(value):
 	shield=value
@@ -147,12 +148,14 @@ func beHit(dmgObj):
 	set_red(true)
 	#跳数字
 	emit_signal("jumpNumber",dmgObj,position)
-	
 	yield(get_tree().create_timer(0.2),"timeout")
 	set_red(false)
-	
 	pass
-	
+#闪避伤害
+func dodge():
+	#跳miss
+	emit_signal("jumpMiss",position)
+	pass
 #---------------功能-----
 #添加一个buff
 func buff_append(buff):
@@ -210,8 +213,6 @@ func calculateProperty():
 	var _def_percent=0
 	var _speed=0
 	var _speed_percent=0
-	var _critRate=0  
-	var _critPower=0
 	for buff in buffList:
 		var property=buff.property
 		var keys=property.keys()
@@ -229,10 +230,6 @@ func calculateProperty():
 					_speed+=property["speed"]
 				"speed_percent":
 					_speed_percent+=property["speed_percent"]
-				"critRate":
-					_critRate+=property["critRate"]
-				"critPower":
-					_critPower+=property["critPower"]
 	atk=floor(atk_base*(1+float(_atk_percent)/100)+_atk)
 	if atk<atk_base/10:
 		atk=atk_base/10
@@ -240,12 +237,6 @@ func calculateProperty():
 	speed=floor(speed_base*(1+float(_speed_percent)/100)+_speed)
 	if speed<speed_base/10:
 		speed=speed_base/10
-	critRate=critRate_base+_critRate
-	if critRate<0:
-		critRate=0
-	critPower=critPower_base+_critPower
-	if critPower<1:
-		critPower=1
 	#发送信号
 	emit_signal("property_change")
 	
@@ -253,6 +244,7 @@ func calculateProperty():
 func skill_init():
 	#读取技能列表，把触发器添加到触发器系统
 	for skill in skillList:
+		skill.start(self)
 		for trigger in skill.triggerList:
 			TriggerSystem.appendTrigger(trigger)
 	pass

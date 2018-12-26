@@ -3,6 +3,8 @@ signal skill_use
 
 var skill
 var isStart=false
+var isMouseOn=false
+#---
 
 var mingziLabel
 var costLabel
@@ -25,6 +27,8 @@ func start(skill):
 	isStart=true
 	#连接信号
 	self.connect("pressed",self,"onPressed")
+	self.connect("mouse_entered",self,"onMouseEnter")
+	self.connect("mouse_exited",self,"onMouseExit")
 	pass
 func set_mingzi(mingzi):
 	mingziLabel.text=mingzi
@@ -50,3 +54,22 @@ func _process(delta):
 #-------------------
 func onPressed():
 	emit_signal("skill_use",skill)
+
+#-----自身回调-----
+func _exit_tree():
+	if isMouseOn:
+		onMouseExit()
+	pass
+
+func onMouseEnter():
+	Global.battle.description_enter(skill.description)
+	isMouseOn=true
+	pass
+func onMouseExit():
+	isMouseOn=false
+	Global.battle.description_exit()
+	pass
+func _gui_input(event):
+	if event is InputEventMouse:
+		Global.battle.description_set_pos(event.global_position)
+	pass

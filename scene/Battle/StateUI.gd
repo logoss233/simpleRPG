@@ -11,7 +11,7 @@ var shield=20 setget set_shield
 
 #var buffList=[]
 
-var character:BattleCharacter #显示的对象
+var character #显示的对象
 
 #引用
 var hpLabel:Label
@@ -67,7 +67,7 @@ func _ready():
 	shieldBar=$ColorRect/shieldBar
 	
 	pass # Replace with function body.
-func start(character:BattleCharacter):
+func start(character):
 	self.character=character
 	
 	#设定初始值

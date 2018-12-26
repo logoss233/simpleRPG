@@ -1,29 +1,31 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://scene/Battle/Battle.gd" type="Script" id=1]
-[ext_resource path="res://scene/Battle/BattleCharacter.tscn" type="PackedScene" id=2]
-[ext_resource path="res://font/font_siteName.tres" type="DynamicFont" id=3]
-[ext_resource path="res://scene/Battle/StateUI.tscn" type="PackedScene" id=4]
-[ext_resource path="res://scene/Battle/PropertyPanel.tscn" type="PackedScene" id=5]
-[ext_resource path="res://scene/Battle/SkillUI.tscn" type="PackedScene" id=6]
-[ext_resource path="res://font/font_uiState.tres" type="DynamicFont" id=7]
+[ext_resource path="res://scene/Battle/BattleCharacter/BattlePlayer.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scene/Battle/BattleCharacter/BattleCharacter.tscn" type="PackedScene" id=3]
+[ext_resource path="res://font/font_siteName.tres" type="DynamicFont" id=4]
+[ext_resource path="res://scene/Battle/StateUI.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scene/Battle/PropertyPanel.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scene/Battle/SkillUI.tscn" type="PackedScene" id=7]
+[ext_resource path="res://font/font_uiState.tres" type="DynamicFont" id=8]
+[ext_resource path="res://scene/Battle/DescriptionPanel.tscn" type="PackedScene" id=9]
 
 [node name="Battle" type="Node2D"]
 script = ExtResource( 1 )
 
 [node name="ColorRect" type="ColorRect" parent="."]
 margin_left = -25.0
-margin_top = -13.0
+margin_top = -10.0
 margin_right = 1281.0
-margin_bottom = 736.0
+margin_bottom = 739.0
 color = Color( 0.52549, 0.596078, 0.521569, 1 )
 
 [node name="characters" type="Node2D" parent="."]
 
 [node name="player" parent="characters" instance=ExtResource( 2 )]
-position = Vector2( 416.45, 407.026 )
+position = Vector2( 405.59, 403.441 )
 
-[node name="enemy" parent="characters" instance=ExtResource( 2 )]
+[node name="enemy" parent="characters" instance=ExtResource( 3 )]
 position = Vector2( 874.271, 409.248 )
 
 [node name="jumpNumberPlace" type="Node2D" parent="."]
@@ -40,30 +42,30 @@ margin_left = 607.0
 margin_top = 85.0
 margin_right = 654.0
 margin_bottom = 110.0
-custom_fonts/font = ExtResource( 3 )
+custom_fonts/font = ExtResource( 4 )
 text = "vs"
 
-[node name="playerStateUI" parent="ui" instance=ExtResource( 4 )]
+[node name="playerStateUI" parent="ui" instance=ExtResource( 5 )]
 
-[node name="enemyStateUI" parent="ui" instance=ExtResource( 4 )]
+[node name="enemyStateUI" parent="ui" instance=ExtResource( 5 )]
 margin_left = 714.0
 margin_top = 3.0
 margin_right = 754.0
 margin_bottom = 43.0
 
-[node name="playerPropertyPanel" parent="ui" instance=ExtResource( 5 )]
+[node name="playerPropertyPanel" parent="ui" instance=ExtResource( 6 )]
 margin_left = 51.0
 margin_top = 200.0
 margin_right = 91.0
 margin_bottom = 240.0
 
-[node name="enemyPropertyPanel" parent="ui" instance=ExtResource( 5 )]
+[node name="enemyPropertyPanel" parent="ui" instance=ExtResource( 6 )]
 margin_left = 1037.0
 margin_top = 194.0
 margin_right = 1077.0
 margin_bottom = 234.0
 
-[node name="SkillUI" parent="ui" instance=ExtResource( 6 )]
+[node name="SkillUI" parent="ui" instance=ExtResource( 7 )]
 margin_left = 50.0
 margin_top = 580.0
 margin_right = 90.0
@@ -77,7 +79,6 @@ margin_right = 88.0
 margin_bottom = 694.0
 
 [node name="Panel" type="Panel" parent="ui/Control2"]
-editor/display_folded = true
 margin_left = 7.0
 margin_top = 1.0
 margin_right = 1199.0
@@ -88,7 +89,7 @@ margin_left = 13.0
 margin_top = 24.0
 margin_right = 54.0
 margin_bottom = 43.0
-custom_fonts/font = ExtResource( 7 )
+custom_fonts/font = ExtResource( 8 )
 text = "物品:"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ui/Control2/Panel"]
@@ -100,6 +101,11 @@ margin_bottom = 52.0
 [node name="Button" type="Button" parent="ui/Control2/Panel/HBoxContainer"]
 margin_right = 84.0
 margin_bottom = 40.0
-custom_fonts/font = ExtResource( 7 )
+custom_fonts/font = ExtResource( 8 )
 text = "恢复药水"
+
+[node name="DescriptionPanel" parent="ui" instance=ExtResource( 9 )]
+visible = false
+margin_top = -2.0
+margin_bottom = 198.0
 

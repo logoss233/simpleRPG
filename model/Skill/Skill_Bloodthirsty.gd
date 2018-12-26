@@ -1,8 +1,11 @@
 extends Skill
 
 func _init():
+	type=1
 	mingzi="嗜血"
-	description="增加所有属性,持续10秒"
+	description="""cost:5,cd:25
+	速度+200
+	"""
 	cost=5
 	cd=25
 	
@@ -13,6 +16,9 @@ func use():
 	var buff=load("res://model/Buff/Buff.gd").new()
 	buff.mingzi="嗜血"
 	buff.life=12
+	buff.description="""cost:5,cd:25
+	速度+200
+	"""
 	buff.property={
 		"speed":200
 	}

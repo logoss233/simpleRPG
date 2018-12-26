@@ -1,8 +1,13 @@
 extends Skill
 
 func _init():
+	type=1 #主动技能
 	mingzi="狂战士"
-	description="增加所有属性,持续10秒"
+	description="""cost:15 cd:10
+	攻击+500，
+	防御-500，
+	速度+200
+	"""
 	cost=15
 	cd=10
 	
@@ -13,13 +18,15 @@ func use():
 	var buff=load("res://model/Buff/Buff.gd").new()
 	buff.mingzi="狂战士"
 	buff.life=8
+	buff.description="""cost:15 cd:10
+	攻击+500，
+	防御-500，
+	速度+200
+	"""
 	buff.property={
 		"atk":500,
 		"def":-500,
-		"speed":200,
-		"critRate":10,
-		"critPower":0.5
-		
+		"speed":200
 	}
 	buff.isShow=true
 	buff.addType="single"

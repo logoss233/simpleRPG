@@ -34,6 +34,8 @@ func start(target):
 	self.target=target
 	#把触发器添加到触发器系统中
 	for trigger in triggerList:
+		#初始化trigger
+		trigger.start(target,self)
 		TriggerSystem.appendTrigger(trigger)
 #结束buff
 func end():

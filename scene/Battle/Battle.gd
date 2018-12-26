@@ -9,13 +9,16 @@ var enemyStateUI
 var playerPropertyPanel
 var enemyPropertyPanel
 var skillUI
+var descriptionPanel
 
 var jumpNumberPlace:Node2D
 var tscn_JumpNumber=preload("res://scene/Battle/JumpNumber.tscn")
 var tscn_JumpSkillMingzi=preload("res://scene/Battle/misc/JumpSkillName.tscn")
-
+var tscn_JumpMiss=preload("res://scene/Battle/misc/JumpMiss.tscn")
 
 func _ready():
+	Global.battle=self
+	
 	jumpNumberPlace=$jumpNumberPlace
 	
 	player=$characters/player
@@ -25,6 +28,7 @@ func _ready():
 	playerPropertyPanel=$ui/playerPropertyPanel
 	enemyPropertyPanel=$ui/enemyPropertyPanel
 	skillUI=$ui/SkillUI
+	descriptionPanel=$ui/DescriptionPanel
 	#初始化角色的参数
 	player.mingzi="勇者小队"
 	player.face=1
@@ -38,59 +42,18 @@ func _ready():
 	player.def=5
 	player.speed=80
 	player.shield=50
-	player.critRate_base=0
-	player.set_image(load("res://image/playr.png"))
-#	var buff=load("res://model/Buff/Buff.gd").new()
-#	buff.mingzi="攻击降低" 
-#	buff.isShow=true
-#	buff.life=10
-#	buff.property={
-#		"atk":100,
-#		"atk_percent":200
-#	}
-#	var trigger=load("res://model/Trigger/Trigger_Test.gd").new()
-#	trigger.target=player
-#	trigger.owner=buff
-#	buff.triggerList.append(trigger)
-#	player.buff_append(buff)
-#	var buff2=load("res://model/Buff/Buff.gd").new()
-#	buff2.mingzi="攻击强化1"
-#	buff2.property={
-#		"atk_percent":200
-#	}
-#	player.buff_append(buff2)
-#	var buff3=load("res://model/Buff/Buff.gd").new()
-#	buff3.isShow=true
-#	buff3.mingzi="神之力量"
-#	buff3.property={
-#		"atk":1000,
-#		"speed":200,
-#		"critRate":50,
-#		"critPower":4
-#	}
-#	player.buff_append(buff3)
-#
-#	buff=load("res://model/Buff/Buff.gd").new()
-#	buff.mingzi="测试buff" 
-#	buff.property={
-#	}
-	#test
 	var skill=load("res://model/Skill/Skill_PowerUp.gd").new()
-	skill.owner=player
 	player.skillList.append(skill)
 	var skill2=load("res://model/Skill/Skill_DeathFinger.gd").new()
-	skill2.owner=player
 	player.skillList.append(skill2)
 	var skill3=load("res://model/Skill/Skill_Berserk.gd").new()
-	skill3.owner=player
 	player.skillList.append(skill3)
 	var skill4=load("res://model/Skill/Skill_Bloodthirsty.gd").new()
-	skill4.owner=player
 	player.skillList.append(skill4)
 	var skill5=load("res://model/Skill/Skill_GodPower.gd").new()
-	skill5.owner=player
 	player.skillList.append(skill5)
-	
+	var skill6=load("res://model/Skill/Skill_Crit.gd").new()
+	player.skillList.append(skill6)
 	
 	
 	enemy.mingzi="史莱姆"
@@ -102,15 +65,20 @@ func _ready():
 	enemy.def=100
 	enemy.speed=60
 	enemy.shield=60
-	enemy.critRate=40
 	enemy.set_image(load("res://image/enemy.png"))
+	skill=load("res://model/Skill/Skill_Dodge.gd").new()
+	enemy.skillList.append(skill)
+	
+	
 	#注册信号侦听
 	player.connect("attack",self,"onAttack")
 	player.connect("jumpNumber",self,"onJumpNumber")
 	player.connect("jumpSkillMingzi",self,"onJumpSkillMingzi")
+	player.connect("jumpMiss",self,"onJumpMiss")
 	enemy.connect("attack",self,"onAttack")
 	enemy.connect("jumpNumber",self,"onJumpNumber")
 	enemy.connect("jumpSkillMingzi",self,"onJumpSkillMingzi")
+	enemy.connect("jumpMiss",self,"onJumpMiss")
 	#ui初始化
 	playerStateUI.start(player)
 	enemyStateUI.start(enemy)
@@ -125,16 +93,17 @@ func _ready():
 
 #------------回调-------------
 func onAttack(fromChara,toChara):
-	#生成一个dmgObj
-	var dmgObj={
-		"from":fromChara, # 伤害来源
-		"to":toChara,     # 伤害目标
-		"dmg":fromChara.atk, #伤害值
-		"isCrit":false, #是否是暴击伤害
-		"canCrit":true,  #该伤害能否被暴击
-		"type":0,       #类型 0是物理伤害 1是魔法伤害
-		"rebound":true  #这个伤害能不能被反弹
-		}
+#	var dmgObj=DmgObj.new({
+#		"from":fromChara, # 伤害来源
+#		"to":toChara,     # 伤害目标
+#		"dmg":fromChara.atk, #伤害值
+#		"isCrit":false, #是否是暴击伤害
+#		"canCrit":true,  #该伤害能否被暴击
+#		"type":0,       #类型 0是物理伤害 1是魔法伤害
+#		"rebound":true  #这个伤害能不能被反弹
+#	})
+	var dmgObj=DmgObjFactory.createAttackDmg(fromChara,toChara,fromChara.atk)
+	
 	damageProcess(dmgObj)
 
 	
@@ -147,18 +116,25 @@ func onJumpSkillMingzi(mingzi,position):
 	var jump=tscn_JumpSkillMingzi.instance()
 	jumpNumberPlace.add_child(jump)
 	jump.start(mingzi,position)
-	pass
-#-------------------------------
+func onJumpMiss(pos):
+	var jump=tscn_JumpMiss.instance()
+	jumpNumberPlace.add_child(jump)
+	jump.start(pos)
+#--------------静态函数-----------------
 #伤害处理
-func damageProcess(dmgObj):
+static func damageProcess(dmgObj):
 	var from=dmgObj.from
 	var to=dmgObj.to
-	#计算暴击
-	if dmgObj.canCrit:
-		if randf()*100<from.critRate:
-			dmgObj.dmg*=from.critPower
-			dmgObj.isCrit=true
-	#如果是物理伤害，用防御减免，魔法伤害不处理
+	
+	#闪避阶段  如果闪避了 跳过下面的流程
+	TriggerSystem.sendEvent("dodge",dmgObj)
+	if dmgObj.isDodge:
+		#显示闪避效果
+		to.dodge()
+		return
+	#暴击阶段
+	TriggerSystem.sendEvent("crit",dmgObj)
+	
 	if dmgObj.type==0:
 		#正防御
 		if to.def>0:
@@ -186,3 +162,14 @@ func damageProcess(dmgObj):
 	pass
 	
 	
+#-----------------功能------
+func description_enter(description):
+	descriptionPanel.visible=true
+	descriptionPanel.set_text(description)
+	pass
+func description_exit():
+	descriptionPanel.visible=false
+	pass
+func description_set_pos(pos):
+	descriptionPanel.setPos(pos)
+	pass

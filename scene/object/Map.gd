@@ -3,8 +3,10 @@ extends Node2D
 class_name Map
 const START_POSITION=Vector2(65,360) #起始site的位置
 const END_POSITION=Vector2(1200,360) #结束site的位置
-const ROAD_WIDTH=200 #路的宽度
+const ROAD_WIDTH=150 #路的宽度
 const ROAD_LONG=8 #走完路程要走几个site
+
+signal enterSite
 
 var tscn_site=preload("res://scene/object/Site.tscn")
 
@@ -30,6 +32,8 @@ func _ready():
 	linePlace=$Lines
 	player=$playerPlace/player
 	eventPlace=$eventPlace
+	
+func start():
 	#生成节点
 	createSite()
 	connectAllSites()
@@ -43,6 +47,7 @@ func _ready():
 	for site in sitePlace.get_children():
 		site.connect("pressed",self,"onSitePressed")
 		pass
+	pass
 
 #生成地点
 func createSite():
@@ -217,24 +222,13 @@ func onSitePressed(site):
 	if nextSiteList.has(site):
 		player.move(site)
 		isPlayerMoving=true
-	
 	pass
 func onPlayerMoveComplete():
 	#玩家走到目的地
 	#触发地点事件
-	match player.site.mingzi:
-		"怪物":
-			#遇怪战斗
-			battle()
+	emit_signal("enterSite",player.site)
 	isPlayerMoving=false
-	
-	
-	pass
-#--------------地点处理----
-func battle():
-	var battle=preload("res://scene/Battle/Battle.tscn").instance()
-	eventPlace.add_child(battle)
-	pass
+
 #--------------------辅助函数-------------
 #给两个地点连线，site1是出发点，site2是目的地
 func connectSite(site1:Site,site2:Site):
