@@ -20,7 +20,6 @@ func _ready():
 	Global.battle=self
 	
 	jumpNumberPlace=$jumpNumberPlace
-	
 	player=$characters/player
 	enemy=$characters/enemy
 	playerStateUI=$ui/playerStateUI
@@ -29,31 +28,36 @@ func _ready():
 	enemyPropertyPanel=$ui/enemyPropertyPanel
 	skillUI=$ui/SkillUI
 	descriptionPanel=$ui/DescriptionPanel
+	
+
+
+func start(team:Team):
 	#初始化角色的参数
 	player.mingzi="勇者小队"
 	player.face=1
-	player.hp_max=200
-	player.hp=200
-	player.mp_max=200
-	player.mp=200
-	player.atk_base=100
-	player.atk=10
-	player.def_base=100
-	player.def=5
-	player.speed=80
-	player.shield=50
-	var skill=load("res://model/Skill/Skill_PowerUp.gd").new()
-	player.skillList.append(skill)
-	var skill2=load("res://model/Skill/Skill_DeathFinger.gd").new()
-	player.skillList.append(skill2)
-	var skill3=load("res://model/Skill/Skill_Berserk.gd").new()
-	player.skillList.append(skill3)
-	var skill4=load("res://model/Skill/Skill_Bloodthirsty.gd").new()
-	player.skillList.append(skill4)
-	var skill5=load("res://model/Skill/Skill_GodPower.gd").new()
-	player.skillList.append(skill5)
-	var skill6=load("res://model/Skill/Skill_Crit.gd").new()
-	player.skillList.append(skill6)
+	player.hp_max=team.hp_max
+	player.hp=team.hp
+	player.mp_max=team.mp_max
+	player.mp=team.mp
+	player.atk_base=team.atk
+	player.def_base=team.def
+	player.speed_base=team.speed
+	player.shield=team.shield
+	player.skillList=team.skillList
+	player.set_number(team.get_number())
+	
+#	var skill=load("res://model/Skill/Skill_PowerUp.gd").new()
+#	player.skillList.append(skill)
+#	var skill2=load("res://model/Skill/Skill_DeathFinger.gd").new()
+#	player.skillList.append(skill2)
+#	var skill3=load("res://model/Skill/Skill_Berserk.gd").new()
+#	player.skillList.append(skill3)
+#	var skill4=load("res://model/Skill/Skill_Bloodthirsty.gd").new()
+#	player.skillList.append(skill4)
+#	var skill5=load("res://model/Skill/Skill_GodPower.gd").new()
+#	player.skillList.append(skill5)
+#	var skill6=load("res://model/Skill/Skill_Crit.gd").new()
+#	player.skillList.append(skill6)
 	
 	
 	enemy.mingzi="史莱姆"
@@ -66,7 +70,7 @@ func _ready():
 	enemy.speed=60
 	enemy.shield=60
 	enemy.set_image(load("res://image/enemy.png"))
-	skill=load("res://model/Skill/Skill_Dodge.gd").new()
+	var skill=load("res://model/Skill/Skill_Dodge.gd").new()
 	enemy.skillList.append(skill)
 	
 	
@@ -89,7 +93,8 @@ func _ready():
 	
 	player.start(self,enemy)
 	enemy.start(self,player)
-	pass # Replace with function body.
+	pass
+
 
 #------------回调-------------
 func onAttack(fromChara,toChara):

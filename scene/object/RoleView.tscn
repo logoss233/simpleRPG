@@ -1,0 +1,46 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://theme/theme_skillButton.tres" type="Theme" id=1]
+[ext_resource path="res://scene/object/RoleView.gd" type="Script" id=2]
+[ext_resource path="res://font/font_uiState.tres" type="DynamicFont" id=3]
+
+[node name="RoleView" type="Button"]
+margin_right = 110.0
+margin_bottom = 110.0
+rect_min_size = Vector2( 110, 110 )
+theme = ExtResource( 1 )
+script = ExtResource( 2 )
+
+[node name="mingziLabel" type="Label" parent="."]
+margin_left = 17.7076
+margin_top = 18.0
+margin_right = 89.7076
+margin_bottom = 37.0
+custom_fonts/font = ExtResource( 3 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "卡卡罗特"
+align = 1
+valign = 1
+
+[node name="lvLabel" type="Label" parent="."]
+margin_left = 19.6051
+margin_top = 48.0911
+margin_right = 91.6051
+margin_bottom = 67.0911
+custom_fonts/font = ExtResource( 3 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "lv1"
+align = 1
+valign = 1
+
+[node name="titleLabel" type="Label" parent="."]
+margin_left = 18.2101
+margin_top = 76.4924
+margin_right = 90.2101
+margin_bottom = 95.4924
+custom_fonts/font = ExtResource( 3 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "勇者"
+align = 1
+valign = 1
+

@@ -1,8 +1,11 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://scene/GameScene.gd" type="Script" id=1]
 [ext_resource path="res://scene/object/Map.tscn" type="PackedScene" id=2]
-[ext_resource path="res://scene/Battle/StateUI.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scene/Battle/ItemUI.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scene/Battle/StateUI.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scene/object/TeamPropertyPanel.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scene/object/RoleListUI.tscn" type="PackedScene" id=6]
 
 [node name="GameScene" type="Node2D"]
 script = ExtResource( 1 )
@@ -13,11 +16,23 @@ script = ExtResource( 1 )
 margin_right = 40.0
 margin_bottom = 40.0
 
-[node name="StateUI" parent="ui" instance=ExtResource( 3 )]
-margin_left = -27.0
-margin_top = -29.0
-margin_right = 13.0
-margin_bottom = 11.0
+[node name="ItemUI" parent="ui" instance=ExtResource( 3 )]
+margin_left = 36.7117
+margin_top = 643.141
+margin_right = 76.7117
+margin_bottom = 683.141
+
+[node name="StateUI" parent="ui" instance=ExtResource( 4 )]
+margin_left = -17.196
+margin_top = -29.7582
+margin_right = 22.804
+margin_bottom = 10.2418
+
+[node name="TeamPropertyPanel" parent="ui" instance=ExtResource( 5 )]
+margin_left = 502.411
+margin_right = 673.411
+
+[node name="RoleListUI" parent="ui" instance=ExtResource( 6 )]
 
 [node name="eventPlace" type="Node2D" parent="."]
 

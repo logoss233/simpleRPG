@@ -1,0 +1,38 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://font/font_uiState.tres" type="DynamicFont" id=1]
+
+[node name="ItemUI" type="Control"]
+editor/display_folded = true
+margin_left = 48.0
+margin_top = 654.0
+margin_right = 88.0
+margin_bottom = 694.0
+
+[node name="Panel" type="Panel" parent="."]
+editor/display_folded = true
+margin_left = 7.0
+margin_top = 1.0
+margin_right = 1199.0
+margin_bottom = 63.0
+
+[node name="Label" type="Label" parent="Panel"]
+margin_left = 13.0
+margin_top = 24.0
+margin_right = 54.0
+margin_bottom = 43.0
+custom_fonts/font = ExtResource( 1 )
+text = "物品:"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
+margin_left = 71.0
+margin_top = 12.0
+margin_right = 223.0
+margin_bottom = 52.0
+
+[node name="Button" type="Button" parent="Panel/HBoxContainer"]
+margin_right = 84.0
+margin_bottom = 40.0
+custom_fonts/font = ExtResource( 1 )
+text = "恢复药水"
+

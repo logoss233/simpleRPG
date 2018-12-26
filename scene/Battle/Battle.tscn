@@ -7,7 +7,7 @@
 [ext_resource path="res://scene/Battle/StateUI.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scene/Battle/PropertyPanel.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scene/Battle/SkillUI.tscn" type="PackedScene" id=7]
-[ext_resource path="res://font/font_uiState.tres" type="DynamicFont" id=8]
+[ext_resource path="res://scene/Battle/ItemUI.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scene/Battle/DescriptionPanel.tscn" type="PackedScene" id=9]
 
 [node name="Battle" type="Node2D"]
@@ -71,38 +71,7 @@ margin_top = 580.0
 margin_right = 90.0
 margin_bottom = 620.0
 
-[node name="Control2" type="Control" parent="ui"]
-editor/display_folded = true
-margin_left = 48.0
-margin_top = 654.0
-margin_right = 88.0
-margin_bottom = 694.0
-
-[node name="Panel" type="Panel" parent="ui/Control2"]
-margin_left = 7.0
-margin_top = 1.0
-margin_right = 1199.0
-margin_bottom = 63.0
-
-[node name="Label" type="Label" parent="ui/Control2/Panel"]
-margin_left = 13.0
-margin_top = 24.0
-margin_right = 54.0
-margin_bottom = 43.0
-custom_fonts/font = ExtResource( 8 )
-text = "物品:"
-
-[node name="HBoxContainer" type="HBoxContainer" parent="ui/Control2/Panel"]
-margin_left = 71.0
-margin_top = 12.0
-margin_right = 223.0
-margin_bottom = 52.0
-
-[node name="Button" type="Button" parent="ui/Control2/Panel/HBoxContainer"]
-margin_right = 84.0
-margin_bottom = 40.0
-custom_fonts/font = ExtResource( 8 )
-text = "恢复药水"
+[node name="ItemUI" parent="ui" instance=ExtResource( 8 )]
 
 [node name="DescriptionPanel" parent="ui" instance=ExtResource( 9 )]
 visible = false

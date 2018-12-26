@@ -4,6 +4,8 @@ class_name Team
 #----信号----
 signal property_change
 signal state_change
+signal role_append
+signal role_remove
 #-----属性---
 
 #直接加减的属性

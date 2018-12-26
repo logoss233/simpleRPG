@@ -91,6 +91,8 @@ func start(battle,oppent):
 	self.oppent=oppent
 	#初始化技能
 	skill_init()
+	#重新计算属性
+	calculateProperty()
 	#重置攻击计时
 	attackTimer=get_attackInterval()
 	startPos=position

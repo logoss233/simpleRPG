@@ -7,9 +7,7 @@ var number=1 #一共有几个人
 func _ready():
 	
 	pass # Replace with function body.
-func start(battle,oppent):
-	.start(battle,oppent)
-	set_number(10)
+
 func set_number(number):
 	self.number=number
 	var roleList=$icon.get_children()

@@ -1,0 +1,64 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scene/object/TeamPropertyPanel.gd" type="Script" id=1]
+[ext_resource path="res://font/font_uiState.tres" type="DynamicFont" id=2]
+
+[node name="TeamPropertyPanel" type="Panel"]
+self_modulate = Color( 0.670588, 0.941176, 0.686275, 0.466667 )
+margin_left = 648.0
+margin_top = 26.8807
+margin_right = 819.0
+margin_bottom = 143.881
+script = ExtResource( 1 )
+
+[node name="Label12" type="Label" parent="."]
+margin_left = 17.7484
+margin_top = 12.9306
+margin_right = 71.7484
+margin_bottom = 31.9306
+custom_fonts/font = ExtResource( 2 )
+text = "攻击："
+
+[node name="atkLabel" type="Label" parent="."]
+margin_left = 92.0314
+margin_top = 14.4781
+margin_right = 146.031
+margin_bottom = 33.4781
+custom_fonts/font = ExtResource( 2 )
+text = "100"
+align = 2
+
+[node name="defLabel" type="Label" parent="."]
+margin_left = 92.0314
+margin_top = 44.6556
+margin_right = 146.031
+margin_bottom = 63.6556
+custom_fonts/font = ExtResource( 2 )
+text = "100"
+align = 2
+
+[node name="speedLabel" type="Label" parent="."]
+margin_left = 92.0314
+margin_top = 75.6068
+margin_right = 146.031
+margin_bottom = 94.6068
+custom_fonts/font = ExtResource( 2 )
+text = "100"
+align = 2
+
+[node name="Label13" type="Label" parent="."]
+margin_left = 17.7484
+margin_top = 43.8128
+margin_right = 71.7484
+margin_bottom = 62.8128
+custom_fonts/font = ExtResource( 2 )
+text = "防御："
+
+[node name="Label14" type="Label" parent="."]
+margin_left = 17.7484
+margin_top = 75.3253
+margin_right = 71.7484
+margin_bottom = 94.3253
+custom_fonts/font = ExtResource( 2 )
+text = "速度："
+

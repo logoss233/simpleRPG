@@ -11,14 +11,14 @@ func _ready():
 	pass 
 func start(skill):
 	self.skill=skill
-	set_mingzi(skill.mingzi)
+	set_mingzi()
 	
 	self.connect("mouse_entered",self,"onMouseEnter")
 	self.connect("mouse_exited",self,"onMouseExit")
 	pass
 
-func set_mingzi(mingzi):
-	mingziLabel.text=mingzi
+func set_mingzi():
+	mingziLabel.text=skill.mingzi+"Lv"+String(skill.lv)
 
 #-----自身回调-----
 func _exit_tree():
