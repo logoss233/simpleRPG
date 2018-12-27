@@ -12,8 +12,7 @@ func condition(eventArg):
 #行为
 func action(eventArg):
 	pass
-
+#触发器的添加在外面的系统各种进行
 func start(character,item):
 	self.character=character
 	self.item=item
-	pass

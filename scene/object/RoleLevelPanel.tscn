@@ -1,0 +1,156 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://scene/object/RoleLevelPanel.gd" type="Script" id=1]
+[ext_resource path="res://font/font_siteName.tres" type="DynamicFont" id=2]
+[ext_resource path="res://font/font_uiState.tres" type="DynamicFont" id=3]
+[ext_resource path="res://scene/Battle/misc/PassiveSkillView.tscn" type="PackedScene" id=4]
+
+[node name="RoleLevelPanel" type="Panel"]
+editor/display_folded = true
+margin_right = 307.0
+margin_bottom = 317.0
+script = ExtResource( 1 )
+
+[node name="mingziLabel" type="Label" parent="."]
+margin_left = 2.0
+margin_top = 5.0
+margin_right = 299.0
+margin_bottom = 45.0
+custom_fonts/font = ExtResource( 2 )
+text = "雷恩"
+align = 1
+valign = 1
+
+[node name="lvLabel" type="Label" parent="."]
+margin_left = 89.0
+margin_top = 47.0
+margin_right = 386.0
+margin_bottom = 87.0
+custom_fonts/font = ExtResource( 2 )
+text = "lv1"
+align = 1
+valign = 1
+
+[node name="titleLabel" type="Label" parent="."]
+margin_left = -52.0
+margin_top = 45.0
+margin_right = 245.0
+margin_bottom = 85.0
+custom_fonts/font = ExtResource( 2 )
+text = "勇者"
+align = 1
+valign = 1
+
+[node name="Label4" type="Label" parent="."]
+margin_left = 73.0
+margin_top = 147.0
+margin_right = 163.0
+margin_bottom = 181.0
+custom_fonts/font = ExtResource( 3 )
+text = "攻击："
+valign = 1
+
+[node name="Label7" type="Label" parent="."]
+margin_left = 73.0
+margin_top = 86.0
+margin_right = 163.0
+margin_bottom = 120.0
+custom_fonts/font = ExtResource( 3 )
+text = "生命："
+valign = 1
+
+[node name="Label8" type="Label" parent="."]
+margin_left = 73.0
+margin_top = 114.0
+margin_right = 163.0
+margin_bottom = 148.0
+custom_fonts/font = ExtResource( 3 )
+text = "魔法："
+valign = 1
+
+[node name="Label5" type="Label" parent="."]
+margin_left = 74.0
+margin_top = 176.0
+margin_right = 164.0
+margin_bottom = 210.0
+custom_fonts/font = ExtResource( 3 )
+text = "防御："
+valign = 1
+
+[node name="Label6" type="Label" parent="."]
+margin_left = 74.0
+margin_top = 208.0
+margin_right = 164.0
+margin_bottom = 242.0
+custom_fonts/font = ExtResource( 3 )
+text = "速度："
+valign = 1
+
+[node name="Label9" type="Label" parent="."]
+margin_left = 40.0
+margin_top = 239.0
+margin_right = 130.0
+margin_bottom = 273.0
+custom_fonts/font = ExtResource( 3 )
+text = "技能:"
+valign = 1
+
+[node name="hpLabel" type="Label" parent="."]
+margin_left = 143.0
+margin_top = 88.0
+margin_right = 233.0
+margin_bottom = 122.0
+custom_fonts/font = ExtResource( 3 )
+text = "100"
+align = 2
+valign = 1
+
+[node name="mpLabel" type="Label" parent="."]
+margin_left = 143.0
+margin_top = 115.0
+margin_right = 233.0
+margin_bottom = 149.0
+custom_fonts/font = ExtResource( 3 )
+text = "100"
+align = 2
+valign = 1
+
+[node name="atkLabel" type="Label" parent="."]
+margin_left = 143.0
+margin_top = 147.0
+margin_right = 233.0
+margin_bottom = 181.0
+custom_fonts/font = ExtResource( 3 )
+text = "100"
+align = 2
+valign = 1
+
+[node name="defLabel" type="Label" parent="."]
+margin_left = 143.0
+margin_top = 173.0
+margin_right = 233.0
+margin_bottom = 207.0
+custom_fonts/font = ExtResource( 3 )
+text = "100"
+align = 2
+valign = 1
+
+[node name="speedLabel" type="Label" parent="."]
+margin_left = 143.0
+margin_top = 206.0
+margin_right = 233.0
+margin_bottom = 240.0
+custom_fonts/font = ExtResource( 3 )
+text = "100"
+align = 2
+valign = 1
+
+[node name="skillPlace" type="VBoxContainer" parent="."]
+editor/display_folded = true
+margin_left = 129.0
+margin_top = 247.0
+margin_right = 293.0
+margin_bottom = 331.0
+
+[node name="PassiveSkillView" parent="skillPlace" instance=ExtResource( 4 )]
+

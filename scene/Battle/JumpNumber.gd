@@ -19,6 +19,7 @@ func start(dmgObj,pos:Vector2):
 	position=pos
 	#魔法伤害显示为黄色
 	if dmgObj.type==1:
+		scale=Vector2(1.5,1.5)
 		modulate=Color.yellow
 	
 	pass

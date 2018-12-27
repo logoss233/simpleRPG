@@ -9,7 +9,8 @@ static func createAttackDmg(from,to,dmg):
 		"canCrit":true,
 		"type":0,
 		"rebound":true,
-		"canDodge":true
+		"canDodge":true,
+		"isNormalAttack":true
 		})
 	return dmgObj
 #快速生成魔法攻击的伤害
@@ -21,7 +22,8 @@ static func createMagicDmg(from,to,dmg):
 		"canCrit":false,
 		"type":1,
 		"rebound":true,
-		"canDodge":false
+		"canDodge":false,
+		"isNormalAttack":false
 		})
 	return dmgObj
 

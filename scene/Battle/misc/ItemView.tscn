@@ -22,6 +22,7 @@ margin_bottom = 29.0
 custom_fonts/font = ExtResource( 2 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "大剑"
+valign = 1
 
 [node name="costLabel" type="Label" parent="."]
 margin_left = 69.0

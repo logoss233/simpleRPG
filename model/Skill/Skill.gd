@@ -34,7 +34,7 @@ func use():
 	pass
 func start(owner):
 	self.owner=owner
-	#把所有触发器添加到触发器列表
+	#初始化触发的变量，不会把触发器添加到触发器系统
 	for trigger in get_triggerList():
 		trigger.start(owner,self)
 

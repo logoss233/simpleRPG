@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://scene/GameScene.gd" type="Script" id=1]
 [ext_resource path="res://scene/object/Map.tscn" type="PackedScene" id=2]
@@ -7,7 +7,8 @@
 [ext_resource path="res://scene/object/TeamPropertyPanel.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scene/object/RoleListUI.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scene/object/RolePanel.tscn" type="PackedScene" id=7]
-[ext_resource path="res://scene/Battle/DescriptionPanel.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scene/object/LevelUpPanel.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scene/Battle/DescriptionPanel.tscn" type="PackedScene" id=9]
 
 [node name="GameScene" type="Node2D"]
 script = ExtResource( 1 )
@@ -35,20 +36,31 @@ margin_left = 502.411
 margin_right = 673.411
 
 [node name="RoleListUI" parent="ui" instance=ExtResource( 6 )]
+margin_left = 694.0
+margin_top = 14.0
+margin_right = 734.0
+margin_bottom = 54.0
 
 [node name="RolePanel" parent="ui" instance=ExtResource( 7 )]
 visible = false
 
+[node name="CanvasLayer2" type="CanvasLayer" parent="."]
+
+[node name="eventPlace" type="Node2D" parent="CanvasLayer2"]
+
+[node name="PopupPanel" type="Control" parent="CanvasLayer2"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="LevelUpPanel" parent="CanvasLayer2/PopupPanel" instance=ExtResource( 8 )]
+visible = false
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="DescriptionPanel" parent="CanvasLayer" instance=ExtResource( 8 )]
+[node name="DescriptionPanel" parent="CanvasLayer" instance=ExtResource( 9 )]
 visible = false
 margin_left = 457.0
 margin_top = 190.0
 margin_right = 657.0
 margin_bottom = 390.0
-
-[node name="CanvasLayer2" type="CanvasLayer" parent="."]
-
-[node name="eventPlace" type="Node2D" parent="CanvasLayer2"]
 

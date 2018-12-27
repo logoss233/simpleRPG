@@ -2,6 +2,9 @@
 extends Node2D
 class_name Battle
 
+signal win
+signal lose
+
 var player:BattleCharacter
 var enemy:BattleCharacter
 var playerStateUI
@@ -9,12 +12,12 @@ var enemyStateUI
 var playerPropertyPanel
 var enemyPropertyPanel
 var skillUI
+onready var itemUI=$ui/ItemUI
 
 var jumpNumberPlace:Node2D
 var tscn_JumpNumber=preload("res://scene/Battle/JumpNumber.tscn")
 var tscn_JumpSkillMingzi=preload("res://scene/Battle/misc/JumpSkillName.tscn")
 var tscn_JumpMiss=preload("res://scene/Battle/misc/JumpMiss.tscn")
-
 func _ready():
 	Global.battle=self
 	
@@ -43,22 +46,10 @@ func start(team:Team):
 	player.speed_base=team.speed
 	player.shield=team.shield
 	player.skillList=team.skillList
+	player.itemList=team.itemList
 	player.set_number(team.get_number())
 	
-#	var skill=load("res://model/Skill/Skill_PowerUp.gd").new()
-#	player.skillList.append(skill)
-#	var skill2=load("res://model/Skill/Skill_DeathFinger.gd").new()
-#	player.skillList.append(skill2)
-#	var skill3=load("res://model/Skill/Skill_Berserk.gd").new()
-#	player.skillList.append(skill3)
-#	var skill4=load("res://model/Skill/Skill_Bloodthirsty.gd").new()
-#	player.skillList.append(skill4)
-#	var skill5=load("res://model/Skill/Skill_GodPower.gd").new()
-#	player.skillList.append(skill5)
-#	var skill6=load("res://model/Skill/Skill_Crit.gd").new()
-#	player.skillList.append(skill6)
-	
-	
+
 	enemy.mingzi="史莱姆"
 	enemy.face=-1
 	enemy.hp_max=2000
@@ -78,17 +69,19 @@ func start(team:Team):
 	player.connect("jumpNumber",self,"onJumpNumber")
 	player.connect("jumpSkillMingzi",self,"onJumpSkillMingzi")
 	player.connect("jumpMiss",self,"onJumpMiss")
+	player.connect("die",self,"onDie")
 	enemy.connect("attack",self,"onAttack")
 	enemy.connect("jumpNumber",self,"onJumpNumber")
 	enemy.connect("jumpSkillMingzi",self,"onJumpSkillMingzi")
 	enemy.connect("jumpMiss",self,"onJumpMiss")
+	enemy.connect("die",self,"onDie")
 	#ui初始化
 	playerStateUI.start(player)
 	enemyStateUI.start(enemy)
 	playerPropertyPanel.start(player)
 	enemyPropertyPanel.start(enemy)
 	skillUI.start(player)
-	
+	itemUI.start(player)
 	
 	player.start(self,enemy)
 	enemy.start(self,player)
@@ -124,12 +117,32 @@ func onJumpMiss(pos):
 	var jump=tscn_JumpMiss.instance()
 	jumpNumberPlace.add_child(jump)
 	jump.start(pos)
+func onDie(character):
+	player.set_process(false)
+	enemy.set_process(false)
+	itemUI.set_visible(false)
+	skillUI.set_visible(false)
+	Global.descriptionPanel.set_visible(false)
+	
+	if character==enemy:
+		win()
+	else:
+		lose()
+func win():
+	emit_signal("win")
+	pass
+func lose():
+	emit_signal("lose")
+
 #--------------静态函数-----------------
 #伤害处理
 static func damageProcess(dmgObj):
 	var from=dmgObj.from
 	var to=dmgObj.to
-	
+	if to.state=="die" || from.state=="die":
+		return
+	#伤害开始前
+	TriggerSystem.sendEvent("damage_before",dmgObj)
 	#闪避阶段  如果闪避了 跳过下面的流程
 	TriggerSystem.sendEvent("dodge",dmgObj)
 	if dmgObj.isDodge:

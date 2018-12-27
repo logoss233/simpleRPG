@@ -13,7 +13,7 @@ var type=0       #类型 0是物理伤害 1是魔法伤害
 var rebound=true    #能否被反弹
 var canDodge=false  #能否被闪避
 var isDodge=false  #是否已经被闪避了
-
+var isNormalAttack=false #这个伤害是不是普通攻击伤害
 
 func _init(dic=null):
 	if dic==null:

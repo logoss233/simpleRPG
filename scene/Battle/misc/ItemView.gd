@@ -1,19 +1,19 @@
 extends Button
 signal item_use
 
-var item
+var item:Item
 var isStart=false
 var isMouseOn=false
 #---
 
-var mingziLabel
+onready var mingziLabel=$mingziLabel
 var costLabel
 var shade #遮罩 技能冷却时显示
 var cdLabel
 
 
 func _ready():
-	mingziLabel=$mingziLabel
+	
 	costLabel=$costLabel
 	shade=$shade
 	cdLabel=$cdLabel
@@ -21,9 +21,23 @@ func _ready():
 
 func start(item):
 	self.item=item
-	set_mingzi(item.mingzi)
+	#初始化显示
+	var text=item.mingzi
+	if item.isShowNumber:
+		text+="*"+String(item.number)
+	set_mingzi(text)
 	set_cd(item.cd_timer)
-	set_cost(item.cost)
+	if item.type==0 || item.cost==0:
+		mingziLabel.align=ALIGN_CENTER
+		mingziLabel.anchor_bottom=1
+		mingziLabel.anchor_right=1
+		mingziLabel.margin_left=0
+		mingziLabel.margin_top=0
+		mingziLabel.margin_right=0
+		mingziLabel.margin_bottom=0
+		costLabel.visible=false
+	else:
+		set_cost(item.cost)
 	isStart=true
 	#连接信号
 	self.connect("pressed",self,"onPressed")
@@ -32,6 +46,7 @@ func start(item):
 	pass
 func set_mingzi(mingzi):
 	mingziLabel.text=mingzi
+	
 func set_cd(cd_timer):
 	if cd_timer<=0:
 		shade.visible=false

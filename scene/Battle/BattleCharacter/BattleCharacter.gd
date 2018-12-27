@@ -8,10 +8,11 @@ signal jumpNumber
 signal jumpSkillMingzi
 signal jumpMiss
 signal property_change
-#signal buff_change
-signal buff_append
-signal buff_remove
-
+signal buff_append(buff)
+signal buff_remove(buff)
+signal item_append(item)
+signal item_remove(item)
+signal die(character)
 
 #-------
 var battle#战斗系统
@@ -37,7 +38,7 @@ var def=10
 
 var buffList=[] #buff列表 战斗中添加进去
 var skillList=[] #技能列表 战斗开始就已经存在技能
-
+var itemList=[] #物品列表 战斗开始就已经存在物品
 
 #攻击间隔=1/(speed/100)    100速度时每秒攻击一次，200速度每秒攻击两次
 func get_attackInterval():
@@ -46,7 +47,7 @@ func get_attackInterval():
 	  #return 1.0/(float(speed)/100)
 var attackTimer=100 #攻击间隔计时
 
-var state=-1 setget set_state#状态 0等待 1攻击
+var state="" setget set_state#状态 idle attack die
 
 var startPos:Vector2 #记录初始位置
 
@@ -56,13 +57,16 @@ var tween:Tween
 #------------setter---
 func set_state(value):
 	state=value
-	
 	pass
 func set_hp(value):
 	hp=value
 	if hp>hp_max:
 		hp=hp_max
 	emit_signal("state_change")
+	if hp<=0:
+		#死亡
+		die()
+		pass
 func set_mp(value):
 	mp=value
 	if mp>mp_max:
@@ -91,26 +95,28 @@ func start(battle,oppent):
 	self.oppent=oppent
 	#初始化技能
 	skill_init()
+	#初始化物品
+	item_init()
 	#重新计算属性
 	calculateProperty()
 	#重置攻击计时
 	attackTimer=get_attackInterval()
 	startPos=position
-	set_state(0)
+	set_state("idle")
 	pass
 
 
 #------------------------------
 func _process(delta):
 	match state:
-		0:  #等待状态
+		"idle":  #等待状态
 			attackTimer-=delta*speed
 			if attackTimer<=0:
 			#攻击
 				attack()
-		1: #攻击状态
-			
-			
+		"attack": #攻击状态
+			pass
+		"die": #死亡状态
 			pass
 	#更新buff持续时间
 	for buff in buffList:
@@ -124,25 +130,34 @@ func _process(delta):
 			skill.cd_timer-=delta
 		if skill.cd_timer<0:
 			skill.cd_timer=0
-	
+	#更新物品cd
+	for item in itemList:
+		if item.cd_timer>0:
+			item.cd_timer-=delta
+		if item.cd_timer<0:
+			item.cd_timer=0
 func attack():
-	set_state(1) #切换到攻击状态
+	set_state("attack") #切换到攻击状态
 	#动画速度  初始0.4 每增加100速度减少50% 
 	var animationTime=0.4*(1-float(speed)/(speed+100))
 	tween.interpolate_property(self,"position",position,position+Vector2(50,0)*face,animationTime,Tween.TRANS_LINEAR,Tween.EASE_IN)
 	tween.start()
 	yield(tween,"tween_completed")
-	
+	#状态不对 取消攻击状态
+	if state=="die":
+		return
 	emit_signal("attack",self,oppent)
 	TriggerSystem.sendEvent("attack",self)
-	
 	tween.interpolate_property(self,"position",position,startPos,animationTime,Tween.TRANS_LINEAR,Tween.EASE_IN)
 	tween.start()
 	yield(tween,"tween_completed")
 	#重置攻击计时
 	attackTimer=get_attackInterval()
+	#状态不对 取消攻击状态
+	if state=="die":
+		return
 	#切换回等待状态
-	set_state(0)
+	set_state("idle")
 	
 	pass
 #收到攻击
@@ -158,6 +173,11 @@ func dodge():
 	#跳miss
 	emit_signal("jumpMiss",position)
 	pass
+func die():
+	set_state("die")
+	emit_signal("die",self)
+	tween.interpolate_property(self,"modulate",null,Color(1,1,1,0),1,Tween.TRANS_LINEAR,Tween.EASE_IN)
+	tween.start()
 #---------------功能-----
 #添加一个buff
 func buff_append(buff):
@@ -263,3 +283,45 @@ func skill_use(skill):
 	#触发技能效果
 	emit_signal("jumpSkillMingzi",skill.mingzi,position)
 	skill.use()
+#初始化物品
+func item_init():
+	for item in itemList:
+		item.start(self)
+		for trigger in item.triggerList:
+			TriggerSystem.appendTrigger(trigger)
+#使用物品
+#使用物品
+func item_use(item):
+	#判断是否可用
+	item=item as Item
+	if item.type==0:
+		return
+	if !item.canBattleUse:
+		return
+	#检测cd和消耗
+	if item.cd_timer>0 ||item.cost>mp:
+		return
+	#检测是否是消耗品，并检测使用次数
+	if item.isConsume && item.number<=0:
+		return
+	#使用物品
+	#减少魔法值
+	self.mp-=item.cost
+	#技能进入冷却
+	item.cd_timer=item.cd
+	#触发技能效果
+	emit_signal("jumpSkillMingzi",item.mingzi,position)
+	item.use()
+	#消耗品使用完后消失
+	if item.willDisappear:
+		item_remove(item)
+func item_remove(item):
+	#把触发器从触发器列表移除
+	for trigger in item.triggerList:
+		TriggerSystem.removeTrigger(trigger)
+	#移除物品
+	Global.team.item_remove(item)
+	#发出移除物品信号
+	emit_signal("item_remove",item)
+	#重新计算属性
+	calculateProperty()

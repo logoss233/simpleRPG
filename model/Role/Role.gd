@@ -1,7 +1,7 @@
 #角色类
 extends Reference
 class_name Role
-
+signal level_change(role)
 
 var mingzi="无名" #名字
 var lv=1 setget set_lv#等级
@@ -15,6 +15,6 @@ func set_lv(value):
 	lv=value
 	for skill in skillList:
 		skill.lv=value
-
+	emit_signal("level_change",self)
 func get_property():
 	return propertyList[lv-1]

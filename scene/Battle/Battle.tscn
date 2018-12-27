@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://scene/Battle/Battle.gd" type="Script" id=1]
 [ext_resource path="res://scene/Battle/BattleCharacter/BattlePlayer.tscn" type="PackedScene" id=2]
@@ -8,7 +8,6 @@
 [ext_resource path="res://scene/Battle/PropertyPanel.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scene/Battle/SkillUI.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scene/Battle/ItemUI.tscn" type="PackedScene" id=8]
-[ext_resource path="res://scene/Battle/DescriptionPanel.tscn" type="PackedScene" id=9]
 
 [node name="Battle" type="Node2D"]
 script = ExtResource( 1 )
@@ -72,9 +71,4 @@ margin_right = 90.0
 margin_bottom = 620.0
 
 [node name="ItemUI" parent="ui" instance=ExtResource( 8 )]
-
-[node name="DescriptionPanel" parent="ui" instance=ExtResource( 9 )]
-visible = false
-margin_top = -2.0
-margin_bottom = 198.0
 

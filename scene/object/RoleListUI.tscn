@@ -12,12 +12,11 @@ rect_min_size = Vector2( 40, 40 )
 script = ExtResource( 1 )
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
-margin_left = 689.661
-margin_top = 22.9535
-margin_right = 1266.66
-margin_bottom = 149.953
+margin_right = 577.0
+margin_bottom = 127.0
 
 [node name="rolePlace" type="HBoxContainer" parent="ScrollContainer"]
+editor/display_folded = true
 margin_right = 1364.0
 margin_bottom = 110.0
 

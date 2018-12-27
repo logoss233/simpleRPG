@@ -4,8 +4,10 @@ class_name Team
 #----信号----
 signal property_change
 signal state_change
-signal role_append
-signal role_remove
+signal role_append(role)
+signal role_remove(role)
+signal item_append(item)
+signal item_remove(item)
 #-----属性---
 
 #直接加减的属性
@@ -15,9 +17,9 @@ var shield=0 setget set_shield
 #根据队员和技能计算出的属性
 var hp_max=100 setget set_hp_max
 var mp_max=100 setget set_mp_max
-var atk=10
-var speed=100
-var def=10
+var atk=10 setget set_atk
+var speed=100 setget set_speed
+var def=10 setget set_def
 
 
 var roleList=[] #队员列表
@@ -55,7 +57,23 @@ func set_mp_max(value):
 	var origin=mp_max
 	mp_max=value
 	self.mp=floor(mp*(float(mp_max)/origin))
-#------------------
+func set_atk(value):
+	atk=value
+	if atk<0:
+		atk=0
+func set_speed(value):
+	speed=value
+	if speed<0:
+		speed=0
+func set_def(value):
+	def=value
+	if def<0:
+		def=0
+#--------------初始化---
+func _init():
+	Global.team=self
+
+#---------------
 #添加队员
 func role_append(role):
 	#队员添加到列表中
@@ -64,20 +82,56 @@ func role_append(role):
 	for skill in role.skillList:
 		skillList.append(skill)
 	calculateProperty()
+	emit_signal("role_append",role)
+	role.connect("level_change",self,"on_role_level_change")
 #移除队员
 func role_remove(role):
 	roleList.remove(role)
 	for skill in role.skillList:
 		skillList.erase(skill)
 	calculateProperty()
+	emit_signal("role_remove",role)
 #添加物品
 func item_append(item):
 	itemList.append(item)
 	calculateProperty()
+	emit_signal("item_append",item)
 #移除物品
 func item_remove(item):
 	itemList.erase(item)
 	calculateProperty()
+	emit_signal("item_remove",item)
+#使用物品
+func item_use(item):
+	#判断是否可用
+	item=item as Item
+	if item.type==0:
+		return
+	if !item.canMapUse:
+		return
+	#检测cd和消耗
+	if item.cd_timer>0 ||item.cost>mp:
+		return
+	#检测是否是消耗品，并检测使用次数
+	if item.isConsume && item.number<=0:
+		return
+	#使用物品
+	#减少魔法值
+	self.mp-=item.cost
+	#技能进入冷却
+	item.cd_timer=item.cd
+	#触发技能效果
+	#emit_signal("jumpSkillMingzi",item.mingzi,position)
+	item.use()
+	#消耗品使用完后消失
+	if item.willDisappear:
+		item_remove(item)
+#----------------回调------
+func on_role_level_change(role):
+	#重新计算属性
+	calculateProperty()
+	pass
+#------------------
 #计算属性
 func calculateProperty():
 	#属性附加值

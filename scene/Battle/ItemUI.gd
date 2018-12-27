@@ -2,7 +2,6 @@ extends Control
 class_name ItemUI
 
 
-
 var character
 var itemMap={} #skill数据类和显示类的映射
 
@@ -12,7 +11,7 @@ onready var itemPlace=$Panel/itemPlace
 func start(_character):
 	character=_character
 	item_init()
-	
+	character.connect("item_remove",self,"item_remove")
 	pass
 #---------------------------------
 func item_init():

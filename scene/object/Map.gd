@@ -57,7 +57,7 @@ func createSite():
 	var site:Site
 	site=tscn_site.instance()
 	sitePlace.add_child(site)
-	site.mingzi="起始点"
+	site.mingzi="起点"
 	site.position=START_POSITION
 	startSite=site
 	#依次生成中间站点
@@ -105,7 +105,7 @@ func createSite():
 	#生成终点
 	site=tscn_site.instance()
 	sitePlace.add_child(site)
-	site.mingzi="终点"
+	site.mingzi="Boss"
 	site.position=END_POSITION
 	endSite=site
 	pass
@@ -210,9 +210,9 @@ func deploySite():
 		elif r<0.6:
 			site.mingzi="村落"
 		elif r<0.8:
-			site.mingzi="地牢"
+			site.mingzi="宝物"
 		else:
-			site.mingzi="??"
+			site.mingzi="温泉"
 	pass
 #---------------------回调----
 func onSitePressed(site):
