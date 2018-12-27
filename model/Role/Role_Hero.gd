@@ -2,7 +2,7 @@ extends Role
 class_name Role_Hero
 
 func _init():
-	mingzi="卡卡罗特" #名字
+	mingzi="勇者" #名字
 	lv=1 #等级 最多3级
 	title="勇者" #称号
 	description=""

@@ -1,7 +1,7 @@
 extends Button
-signal skill_use
+signal item_use
 
-var skill
+var item
 var isStart=false
 var isMouseOn=false
 #---
@@ -19,11 +19,11 @@ func _ready():
 	cdLabel=$cdLabel
 	pass # Replace with function body.
 
-func start(skill):
-	self.skill=skill
-	set_mingzi(skill.mingzi)
-	set_cd(skill.cd_timer)
-	set_cost(skill.cost)
+func start(item):
+	self.item=item
+	set_mingzi(item.mingzi)
+	set_cd(item.cd_timer)
+	set_cost(item.cost)
 	isStart=true
 	#连接信号
 	self.connect("pressed",self,"onPressed")
@@ -48,12 +48,12 @@ func _process(delta):
 	if !isStart:
 		return
 	#更新cd
-	set_cd(skill.cd_timer)
+	set_cd(item.cd_timer)
 	pass
 	
 #-------------------
 func onPressed():
-	emit_signal("skill_use",skill)
+	emit_signal("item_use",item)
 
 #-----自身回调-----
 func _exit_tree():
@@ -62,7 +62,7 @@ func _exit_tree():
 	pass
 
 func onMouseEnter():
-	Global.descriptionPanel.description_enter(skill.description)
+	Global.descriptionPanel.description_enter(item.description)
 	isMouseOn=true
 	pass
 func onMouseExit():

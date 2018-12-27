@@ -99,7 +99,7 @@ func createSite():
 				site.position=Vector2(x,y)
 				#位置偏移
 				var x_off=rand_range(-30,30)
-				var y_off=rand_range(-30,30)
+				var y_off=rand_range(-20,20)
 				site.position+=Vector2(x_off,y_off)
 		levelList.append(level)
 	#生成终点

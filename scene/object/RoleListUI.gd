@@ -1,6 +1,8 @@
 extends Control
 class_name RoleListUI
 
+signal checkRole(role)
+
 var team:Team
 #数据类和显示对应的列表
 var roleMap={} 
@@ -30,7 +32,12 @@ func role_append(role):
 	rolePlace.add_child(roleView)
 	roleView.start(role)
 	roleMap[role]=roleView
+	roleView.connect("checkRole",self,"on_roleView_checkRole")
 func role_remove(role):
 	var roleView=roleMap[role]
 	roleMap.erase(role)
 	roleView.queue_free()
+#------------回调
+func on_roleView_checkRole(role):
+	emit_signal("checkRole",role)
+	pass

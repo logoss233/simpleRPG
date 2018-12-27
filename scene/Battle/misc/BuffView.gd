@@ -49,14 +49,14 @@ func _exit_tree():
 	pass
 
 func onMouseEnter():
-	Global.battle.description_enter(buff.description)
+	Global.descriptionPanel.description_enter(buff.description)
 	isMouseOn=true
 	pass
 func onMouseExit():
 	isMouseOn=false
-	Global.battle.description_exit()
+	Global.descriptionPanel.description_exit()
 	pass
 func _gui_input(event):
 	if event is InputEventMouse:
-		Global.battle.description_set_pos(event.global_position)
+		Global.descriptionPanel.description_set_pos(event.global_position)
 	pass

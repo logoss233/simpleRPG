@@ -2,11 +2,14 @@ extends Node2D
 
 var team
 
+
+
 onready var map=$Map
-onready var eventPlace=$eventPlace
+onready var eventPlace=$CanvasLayer2/eventPlace
 onready var stateUI=$ui/StateUI
 onready var propetyPanel=$ui/TeamPropertyPanel
 onready var roleListUI=$ui/RoleListUI
+onready var rolePanel=$ui/RolePanel
 func _ready():
 	
 	#初始化team
@@ -28,6 +31,8 @@ func _ready():
 	#初始化StateUI
 	stateUI.start(team)
 	propetyPanel.start(team)
+	
+	roleListUI.connect("checkRole",self,"on_roleListUI_checkRole")
 	roleListUI.start(team)
 	
 
@@ -41,3 +46,8 @@ func battle():
 	var battle=load("res://scene/Battle/Battle.tscn").instance()
 	eventPlace.add_child(battle)
 	battle.start(team)
+
+func on_roleListUI_checkRole(role):
+	#显示角色状态ui
+	rolePanel.check_role(role)
+	pass

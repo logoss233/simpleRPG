@@ -9,7 +9,6 @@ var enemyStateUI
 var playerPropertyPanel
 var enemyPropertyPanel
 var skillUI
-var descriptionPanel
 
 var jumpNumberPlace:Node2D
 var tscn_JumpNumber=preload("res://scene/Battle/JumpNumber.tscn")
@@ -27,7 +26,7 @@ func _ready():
 	playerPropertyPanel=$ui/playerPropertyPanel
 	enemyPropertyPanel=$ui/enemyPropertyPanel
 	skillUI=$ui/SkillUI
-	descriptionPanel=$ui/DescriptionPanel
+
 	
 
 
@@ -167,14 +166,3 @@ static func damageProcess(dmgObj):
 	pass
 	
 	
-#-----------------功能------
-func description_enter(description):
-	descriptionPanel.visible=true
-	descriptionPanel.set_text(description)
-	pass
-func description_exit():
-	descriptionPanel.visible=false
-	pass
-func description_set_pos(pos):
-	descriptionPanel.setPos(pos)
-	pass

@@ -2,10 +2,10 @@
 
 [ext_resource path="res://theme/theme_skillButton.tres" type="Theme" id=1]
 [ext_resource path="res://font/font_uiState.tres" type="DynamicFont" id=2]
-[ext_resource path="res://scene/Battle/misc/SkillView.gd" type="Script" id=3]
+[ext_resource path="res://scene/Battle/misc/ItemView.gd" type="Script" id=3]
 [ext_resource path="res://font/font_siteName.tres" type="DynamicFont" id=4]
 
-[node name="SkillView" type="Button"]
+[node name="ItemView" type="Button"]
 margin_right = 48.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 112, 40 )
@@ -21,7 +21,7 @@ margin_right = 59.0
 margin_bottom = 29.0
 custom_fonts/font = ExtResource( 2 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
-text = "旋风斩"
+text = "大剑"
 
 [node name="costLabel" type="Label" parent="."]
 margin_left = 69.0
