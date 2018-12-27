@@ -13,9 +13,19 @@
 [node name="GameScene" type="Node2D"]
 script = ExtResource( 1 )
 
-[node name="Map" parent="." instance=ExtResource( 2 )]
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 1345.0
+margin_bottom = 635.0
+
+[node name="Map" parent="ScrollContainer" instance=ExtResource( 2 )]
+margin_right = 2500.0
+margin_bottom = 600.0
+rect_min_size = Vector2( 2500, 600 )
 
 [node name="ui" type="Control" parent="."]
+editor/display_folded = true
 margin_right = 40.0
 margin_bottom = 40.0
 
@@ -46,11 +56,17 @@ visible = false
 
 [node name="CanvasLayer2" type="CanvasLayer" parent="."]
 
-[node name="eventPlace" type="Node2D" parent="CanvasLayer2"]
+[node name="eventPlace" type="Control" parent="CanvasLayer2"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
 
 [node name="PopupPanel" type="Control" parent="CanvasLayer2"]
-margin_right = 40.0
-margin_bottom = 40.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 7.0
+margin_bottom = -5.0
+mouse_filter = 2
 
 [node name="LevelUpPanel" parent="CanvasLayer2/PopupPanel" instance=ExtResource( 8 )]
 visible = false

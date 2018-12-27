@@ -3,7 +3,7 @@
 [ext_resource path="res://scene/object/Map.gd" type="Script" id=1]
 [ext_resource path="res://scene/object/MapPlayer.tscn" type="PackedScene" id=2]
 
-[node name="Map" type="Node2D"]
+[node name="Map" type="Control"]
 editor/display_folded = true
 script = ExtResource( 1 )
 

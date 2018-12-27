@@ -49,6 +49,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://model/Item/Item.gd"
 }, {
+"base": "Panel",
+"class": "ItemChoosePanel",
+"language": "GDScript",
+"path": "res://scene/object/ItemChoosePanel.gd"
+}, {
 "base": "Control",
 "class": "ItemUI",
 "language": "GDScript",
@@ -79,7 +84,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scene/object/LevelUpPanel.gd"
 }, {
-"base": "Node2D",
+"base": "Control",
 "class": "Map",
 "language": "GDScript",
 "path": "res://scene/object/Map.gd"
@@ -93,6 +98,11 @@ _global_script_classes=[ {
 "class": "Role",
 "language": "GDScript",
 "path": "res://model/Role/Role.gd"
+}, {
+"base": "Panel",
+"class": "RoleChoosePanel",
+"language": "GDScript",
+"path": "res://scene/object/RoleChoosePanel.gd"
 }, {
 "base": "Panel",
 "class": "RoleLevelPanel",
@@ -183,6 +193,7 @@ _global_script_class_icons={
 "DmgObj": "",
 "GameScene": "",
 "Item": "",
+"ItemChoosePanel": "",
 "ItemUI": "",
 "Item_BigSword": "",
 "Item_LightTrunch": "",
@@ -192,6 +203,7 @@ _global_script_class_icons={
 "Map": "",
 "MapPlayer": "",
 "Role": "",
+"RoleChoosePanel": "",
 "RoleLevelPanel": "",
 "RoleListUI": "",
 "RolePanel": "",

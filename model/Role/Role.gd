@@ -11,6 +11,7 @@ var propertyList=[{},{},{}]
 var property setget ,get_property
 var skillList=[] #根据角色等级决定技能等级
 
+
 func set_lv(value):
 	lv=value
 	for skill in skillList:

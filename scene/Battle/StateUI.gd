@@ -83,7 +83,9 @@ func start(character):
 	pass
 func onStateChange():
 	#重置属性
+	self.hp_max=character.hp_max
 	self.hp=character.hp
+	self.mp_max=character.mp_max
 	self.mp=character.mp
 	self.shield=character.shield
 	pass

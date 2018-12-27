@@ -1,10 +1,10 @@
 #大地图 里面有site(地点)  玩家棋子也在这里面移动
-extends Node2D
+extends Control
 class_name Map
 const START_POSITION=Vector2(65,360) #起始site的位置
-const END_POSITION=Vector2(1200,360) #结束site的位置
+const END_POSITION=Vector2(2400,360) #结束site的位置
 const ROAD_WIDTH=150 #路的宽度
-const ROAD_LONG=8 #走完路程要走几个site
+const ROAD_LONG=15 #走完路程要走几个site
 
 signal enterSite
 
@@ -123,13 +123,6 @@ func connectAllSites():
 		level=levelList[i]
 		#获取下一层level
 		var levelNext=levelList[i+1]
-		#先清理没有preSite的site  暂时不用这个功能
-#		for j in range(level.size()):
-#			var site:Site=level[j]
-#			if site!=null:
-#				if site.preSiteList.size()==0:
-#					site.queue_free()
-#					level[j]=null
 
 		#查找出没有preSite的site 让它和上一层的最相近的site相连
 		for j in range(level.size()):
@@ -186,7 +179,7 @@ func connectAllSites():
 	
 	#清理最后一层level
 	level=levelList.back()
-	var preLevel=levelList[level.size()-2]
+	var preLevel=levelList[levelList.size()-2]
 	for j in range(level.size()):
 		var site:Site=level[j]
 		if site!=null:

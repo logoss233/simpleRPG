@@ -1,0 +1,71 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scene/object/ItemChoosePanel.gd" type="Script" id=1]
+[ext_resource path="res://font/font_siteName.tres" type="DynamicFont" id=2]
+
+[node name="ItemChoosePanel" type="Panel"]
+self_modulate = Color( 0.6, 0.32549, 0.32549, 0.207843 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+
+[node name="Panel" type="Panel" parent="."]
+self_modulate = Color( 0.423529, 0.831373, 0.0901961, 1 )
+margin_left = 422.0
+margin_top = 47.0
+margin_right = 884.0
+margin_bottom = 616.0
+
+[node name="titleLabel" type="Label" parent="Panel"]
+margin_left = 20.0
+margin_top = 9.0
+margin_right = 349.0
+margin_bottom = 73.0
+custom_fonts/font = ExtResource( 2 )
+text = "选择一个物品获得 "
+align = 1
+autowrap = true
+clip_text = true
+
+[node name="Label2" type="Label" parent="Panel"]
+margin_left = 101.216
+margin_top = 377.0
+margin_right = 234.216
+margin_bottom = 402.0
+custom_fonts/font = ExtResource( 2 )
+text = "你选择了："
+
+[node name="choosedLabel" type="Label" parent="Panel"]
+margin_left = 274.392
+margin_top = 375.708
+margin_right = 407.392
+margin_bottom = 400.708
+custom_fonts/font = ExtResource( 2 )
+text = "大剑"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel"]
+margin_left = 169.39
+margin_top = 92.44
+margin_right = 325.39
+margin_bottom = 342.44
+scroll_horizontal_enabled = false
+
+[node name="itemViewPlace" type="VBoxContainer" parent="Panel/ScrollContainer"]
+alignment = 1
+
+[node name="confirmButton" type="Button" parent="Panel"]
+margin_left = 189.162
+margin_top = 454.979
+margin_right = 282.162
+margin_bottom = 498.979
+custom_fonts/font = ExtResource( 2 )
+text = "确定"
+
+[node name="jumpButton" type="Button" parent="Panel"]
+margin_left = 351.551
+margin_top = 11.1344
+margin_right = 444.551
+margin_bottom = 55.1344
+custom_fonts/font = ExtResource( 2 )
+text = "跳过"
+

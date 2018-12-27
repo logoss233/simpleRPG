@@ -2,11 +2,10 @@ extends BattleCharacter
 class_name BattlePlayer
 
 var number=1 #一共有几个人
+var itemNumber_max=1 #最大物品数量
 
 
-func _ready():
-	
-	pass # Replace with function body.
+
 
 func set_number(number):
 	self.number=number

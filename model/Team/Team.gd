@@ -8,6 +8,7 @@ signal role_append(role)
 signal role_remove(role)
 signal item_append(item)
 signal item_remove(item)
+signal itemNumber_max_change()
 #-----属性---
 
 #直接加减的属性
@@ -20,6 +21,7 @@ var mp_max=100 setget set_mp_max
 var atk=10 setget set_atk
 var speed=100 setget set_speed
 var def=10 setget set_def
+var itemNumber_max=3 setget set_itemNumber_max#最大物品数量
 
 
 var roleList=[] #队员列表
@@ -53,10 +55,12 @@ func set_hp_max(value):
 	if tmp_hp<=0:
 		tmp_hp=1
 	self.hp=tmp_hp
+	emit_signal("state_change")
 func set_mp_max(value):
 	var origin=mp_max
 	mp_max=value
 	self.mp=floor(mp*(float(mp_max)/origin))
+	emit_signal("state_change")
 func set_atk(value):
 	atk=value
 	if atk<0:
@@ -69,10 +73,12 @@ func set_def(value):
 	def=value
 	if def<0:
 		def=0
+func set_itemNumber_max(value):
+	itemNumber_max=value
+	emit_signal("itemNumber_max_change")
 #--------------初始化---
 func _init():
 	Global.team=self
-
 #---------------
 #添加队员
 func role_append(role):
@@ -84,6 +90,8 @@ func role_append(role):
 	calculateProperty()
 	emit_signal("role_append",role)
 	role.connect("level_change",self,"on_role_level_change")
+	#重新计算物品栏大小
+	set_itemNumber_max(roleList.size())
 #移除队员
 func role_remove(role):
 	roleList.remove(role)
@@ -91,6 +99,8 @@ func role_remove(role):
 		skillList.erase(skill)
 	calculateProperty()
 	emit_signal("role_remove",role)
+	#重新计算物品栏大小
+	set_itemNumber_max(roleList.size())
 #添加物品
 func item_append(item):
 	itemList.append(item)
@@ -176,4 +186,5 @@ func calculateProperty():
 	self.atk=floor(_atk*(1+float(_atk_percent)/100))
 	self.def=floor(_def*(1+float(_def_percent)/100))
 	self.speed=floor(_speed*(1+float(_speed_percent)/100))
+	
 	emit_signal("property_change")

@@ -48,6 +48,7 @@ func start(team:Team):
 	player.skillList=team.skillList
 	player.itemList=team.itemList
 	player.set_number(team.get_number())
+	player.itemNumber_max=team.itemNumber_max
 	
 
 	enemy.mingzi="史莱姆"
@@ -123,7 +124,10 @@ func onDie(character):
 	itemUI.set_visible(false)
 	skillUI.set_visible(false)
 	Global.descriptionPanel.set_visible(false)
-	
+	#去除所有触发器
+	TriggerSystem.triggerList=[]
+	#等待1.5秒
+	yield(get_tree().create_timer(1.5),"timeout")
 	if character==enemy:
 		win()
 	else:
