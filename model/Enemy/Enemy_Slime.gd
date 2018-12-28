@@ -9,7 +9,7 @@ func _init():
 	atk=40
 	def=30
 	speed=110
-	skillList=[]
+	skillList=[TmpSkill.new()]
 	
 	
 
@@ -18,19 +18,13 @@ class TmpSkill extends SimpleSkill:
 		type=0
 		mingzi="腐蚀"
 		description="""普通攻击减少对方10点防御
-		最多叠加5层
+		持续4秒
 		"""
-		
-#		var trigger=Trigger_Crit.new()
-#		trigger.critRate=20
-#		trigger.critPower=1.75
-#		triggerList.append(trigger)
+		triggerList=[TmpTrigger.new()]
+
 
 
 class TmpTrigger extends Trigger:
-	var blockRate=50
-	var reduce=20
-	
 	func _init():
 		event="damage_after"
 	func condition(dmgObj:DmgObj):
@@ -42,20 +36,11 @@ class TmpTrigger extends Trigger:
 		#给对手加减护甲buff
 		var buff=Buff.new()
 		buff.mingzi="腐蚀"
-		buff.description="每层减少10点护甲"
-		buff.addType="increase"
-		buff.life=99
+		buff.description="减少10点护甲"
+		buff.addType="single"
+		buff.life=4
 		buff.property={
 			"def":-10
 		}
+		dmgObj.to.buff_append(buff)
 		
-
-class TmpBuff extends Buff:
-	_init():
-		buff.mingzi="腐蚀"
-		buff.description="每层减少10点护甲"
-		buff.addType="increase"
-		buff.life=99
-		buff.property={
-			"def":-10
-		}

@@ -14,5 +14,5 @@ func _init():
 
 func use():
 	var dmgObj=DmgObjFactory.createMagicDmg(owner,owner.oppent,300+(lv-1)*300)
-	Battle.damageProcess(dmgObj)
+	BattleProcess.damageProcess(dmgObj)
 	pass

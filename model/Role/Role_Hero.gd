@@ -29,6 +29,5 @@ func _init():
 	}
 	]
 	
-	var skill=Skill_LightGuard.new()
-	skillList.append(skill)
+	skillList=[Skill_LightGuard.new(),Skill_BalanceAttack.new()]
 	

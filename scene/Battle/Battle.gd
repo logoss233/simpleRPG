@@ -50,19 +50,22 @@ func start(team:Team):
 	player.set_number(team.get_number())
 	player.itemNumber_max=team.itemNumber_max
 	
-	enemy.set_enemy(Enemy_Slime.new())
-#	enemy.mingzi="史莱姆"
-#	enemy.face=-1
-#	enemy.hp_max=400
-#	enemy.hp=400
-#	enemy.atk_base=60
-#	enemy.def_base=30
-#	enemy.speed_base=80
-#	enemy.shield=0
-#	enemy.set_image(load("res://image/enemy.png"))
-#	var skill=load("res://model/Skill/Skill_Dodge.gd").new()
-#	enemy.skillList.append(skill)
-	
+	#enemy.set_enemy(Enemy_Slime.new())
+	#enemy.set_enemy(Enemy_Mouse.new())
+	#enemy.set_enemy(Enemy_Cactus.new())
+	#enemy.set_enemy(Enemy_Mage.new())
+	#enemy.set_enemy(Enemy_Skeleton.new())
+	#enemy.set_enemy(Enemy_Bat.new())
+	#enemy.set_enemy(Enemy_TreeMan.new())
+	#enemy.set_enemy(Enemy_Smoke.new())
+	#enemy.set_enemy(Enemy_FlyFish.new())
+	#enemy.set_enemy(Enemy_Rider.new())
+	#enemy.set_enemy(Enemy_StoneMan.new())
+	enemy.set_enemy(Enemy_Stone.new())
+	#随机给敌人的技能加上几秒冷却
+	for skill in enemy.skillList:
+		if skill.type==1:
+			skill.cd_timer=rand_range(1,3)
 	
 	#注册信号侦听
 	player.connect("attack",self,"onAttack")
@@ -106,7 +109,7 @@ func onAttack(fromChara,toChara):
 #	})
 	var dmgObj=DmgObjFactory.createAttackDmg(fromChara,toChara,fromChara.atk)
 	
-	damageProcess(dmgObj)
+	BattleProcess.damageProcess(dmgObj)
 
 	
 func onJumpNumber(dmgObj,position):
@@ -144,65 +147,4 @@ func lose():
 
 #--------------静态函数-----------------
 #伤害处理
-static func damageProcess(dmgObj):
-	var from=dmgObj.from
-	var to=dmgObj.to
-	if to.state=="die" || from.state=="die":
-		return
-	#伤害开始前
-	TriggerSystem.sendEvent("damage_before",dmgObj)
-	#闪避阶段  如果闪避了 跳过下面的流程
-	TriggerSystem.sendEvent("dodge",dmgObj)
-	if dmgObj.isDodge:
-		#显示闪避效果
-		to.dodge()
-		return
-	#暴击阶段
-	TriggerSystem.sendEvent("crit",dmgObj)
-	
-	if dmgObj.type==0:
-		#正防御
-		if to.def>0:
-			var dr=float(to.def)/(to.def+100)
-			dmgObj.dmg=floor(dmgObj.dmg*(1-dr))
-		elif to.def<0: #负防御  防御如果为0 不做处理
-			var ir=float(abs(to.def))/(abs(to.def)+100)
-			dmgObj.dmg=floor(dmgObj.dmg*(1+ir))
-	else:
-		pass
-	#如果dmg小于0，把它变成0
-	if dmgObj.dmg<0:
-		dmgObj.dmg=0
-	#伤害结算阶段 优先扣除护盾值，再扣除血
-	if to.shield>0:
-		if to.shield>=dmgObj.dmg:
-			to.shield-=dmgObj.dmg
-		else:
-			var left=dmgObj.dmg-to.shield
-			to.shield=0
-			to.hp-=left
-	else:
-		to.hp-=dmgObj.dmg
-	
-	#受到伤害
-	to.beHit(dmgObj)
-	#伤害之后事件
-	TriggerSystem.sendEvent("damage_after",dmgObj)
-	
-	
-	pass
-static func heatProcess(healObj):
-	var from=healObj.from
-	var to=healObj.to
-	if to.state=="die" || from.state=="die":
-		return
-	#治疗开始前
-	TriggerSystem.sendEvent("heal_before",healObj)
-	#治疗
-	if healObj.heal<0:
-		healObj.heal=0
-	to.hp+=healObj.heal
-	#跳出治疗数字
-	to.beHeal(healObj)
-	pass
-	
+

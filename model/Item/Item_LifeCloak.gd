@@ -24,5 +24,5 @@ class TmpTrigger extends Trigger:
 		timer+=delta
 		if timer>3:
 			var healObj=HealObjFactory.createHeal(character,character,floor(character.hp_max/50))
-			Battle.heatProcess(healObj)
+			BattleProcess.healProcess(healObj)
 			timer=0

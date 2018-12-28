@@ -50,14 +50,64 @@ _global_script_classes=[ {
 "path": "res://model/Enemy/Enemy.gd"
 }, {
 "base": "Reference",
+"class": "Enemy_Bat",
+"language": "GDScript",
+"path": "res://model/Enemy/Enemy_Bat.gd"
+}, {
+"base": "Reference",
+"class": "Enemy_Cactus",
+"language": "GDScript",
+"path": "res://model/Enemy/Enemy_Cactus.gd"
+}, {
+"base": "Reference",
+"class": "Enemy_FlyFish",
+"language": "GDScript",
+"path": "res://model/Enemy/Enemy_FlyFish.gd"
+}, {
+"base": "Reference",
+"class": "Enemy_Mage",
+"language": "GDScript",
+"path": "res://model/Enemy/Enemy_Mage.gd"
+}, {
+"base": "Reference",
 "class": "Enemy_Mouse",
 "language": "GDScript",
 "path": "res://model/Enemy/Enemy_Mouse.gd"
 }, {
-"base": "Enemy",
+"base": "Reference",
+"class": "Enemy_Rider",
+"language": "GDScript",
+"path": "res://model/Enemy/Enemy_Rider.gd"
+}, {
+"base": "Reference",
+"class": "Enemy_Skeleton",
+"language": "GDScript",
+"path": "res://model/Enemy/Enemy_Skeleton.gd"
+}, {
+"base": "Reference",
 "class": "Enemy_Slime",
 "language": "GDScript",
 "path": "res://model/Enemy/Enemy_Slime.gd"
+}, {
+"base": "Reference",
+"class": "Enemy_Smoke",
+"language": "GDScript",
+"path": "res://model/Enemy/Enemy_Smoke.gd"
+}, {
+"base": "Reference",
+"class": "Enemy_Stone",
+"language": "GDScript",
+"path": "res://model/Enemy/Enemy_Stone.gd"
+}, {
+"base": "Reference",
+"class": "Enemy_StoneMan",
+"language": "GDScript",
+"path": "res://model/Enemy/Enemy_StoneMan.gd"
+}, {
+"base": "Reference",
+"class": "Enemy_TreeMan",
+"language": "GDScript",
+"path": "res://model/Enemy/Enemy_TreeMan.gd"
 }, {
 "base": "Node2D",
 "class": "GameScene",
@@ -180,6 +230,11 @@ _global_script_classes=[ {
 "path": "res://model/Role/Role_Berserker.gd"
 }, {
 "base": "Reference",
+"class": "Role_Doctor",
+"language": "GDScript",
+"path": "res://model/Role/Role_Doctor.gd"
+}, {
+"base": "Reference",
 "class": "Role_Hero",
 "language": "GDScript",
 "path": "res://model/Role/Role_Hero.gd"
@@ -205,6 +260,11 @@ _global_script_classes=[ {
 "path": "res://model/Skill/Skill.gd"
 }, {
 "base": "Reference",
+"class": "Skill_BalanceAttack",
+"language": "GDScript",
+"path": "res://model/Skill/Skill_BalanceAttack.gd"
+}, {
+"base": "Reference",
 "class": "Skill_Berserker",
 "language": "GDScript",
 "path": "res://model/Skill/Skill_Berserk.gd"
@@ -218,6 +278,11 @@ _global_script_classes=[ {
 "class": "Skill_DeathFinger",
 "language": "GDScript",
 "path": "res://model/Skill/Skill_DeathFinger.gd"
+}, {
+"base": "Reference",
+"class": "Skill_HealthManage",
+"language": "GDScript",
+"path": "res://model/Skill/Skill_HealthManage.gd"
 }, {
 "base": "Reference",
 "class": "Skill_LightGuard",
@@ -253,6 +318,16 @@ _global_script_classes=[ {
 "class": "Trigger_Dodge",
 "language": "GDScript",
 "path": "res://model/Trigger/Trigger_Dodge.gd"
+}, {
+"base": "Reference",
+"class": "Trigger_LifeSteal",
+"language": "GDScript",
+"path": "res://model/Trigger/Trigger_LifeSteal.gd"
+}, {
+"base": "Reference",
+"class": "Trigger_MagicDamageReduce",
+"language": "GDScript",
+"path": "res://model/Trigger/Trigger_MagicDamageReduce.gd"
 } ]
 _global_script_class_icons={
 "Battle": "",
@@ -263,8 +338,18 @@ _global_script_class_icons={
 "DescriptionPanel": "",
 "DmgObj": "",
 "Enemy": "",
+"Enemy_Bat": "",
+"Enemy_Cactus": "",
+"Enemy_FlyFish": "",
+"Enemy_Mage": "",
 "Enemy_Mouse": "",
+"Enemy_Rider": "",
+"Enemy_Skeleton": "",
 "Enemy_Slime": "",
+"Enemy_Smoke": "",
+"Enemy_Stone": "",
+"Enemy_StoneMan": "",
+"Enemy_TreeMan": "",
 "GameScene": "",
 "HealObj": "",
 "Item": "",
@@ -289,21 +374,26 @@ _global_script_class_icons={
 "RolePanel": "",
 "RoleView": "",
 "Role_Berserker": "",
+"Role_Doctor": "",
 "Role_Hero": "",
 "Role_Lion": "",
 "SimpleSkill": "",
 "Site": "",
 "Skill": "",
+"Skill_BalanceAttack": "",
 "Skill_Berserker": "",
 "Skill_Crit": "",
 "Skill_DeathFinger": "",
+"Skill_HealthManage": "",
 "Skill_LightGuard": "",
 "StateUI": "",
 "Team": "",
 "Trigger": "",
 "Trigger_Block": "",
 "Trigger_Crit": "",
-"Trigger_Dodge": ""
+"Trigger_Dodge": "",
+"Trigger_LifeSteal": "",
+"Trigger_MagicDamageReduce": ""
 }
 
 [application]
@@ -320,6 +410,7 @@ TriggerSystem="*res://autoload/TriggerSystem.gd"
 DmgObjFactory="*res://autoload/DmgObjFactory.gd"
 Global="*res://autoload/Global.gd"
 HealObjFactory="*res://autoload/HealObjFactory.gd"
+BattleProcess="*res://autoload/BattleProcess.gd"
 
 [debug]
 

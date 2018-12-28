@@ -259,7 +259,7 @@ func calculateProperty():
 	atk=floor(atk_base*(1+float(_atk_percent)/100)+_atk)
 	if atk<atk_base/10:
 		atk=atk_base/10
-	def=floor(def_base*(1+_def_percent)+_def)
+	def=floor(def_base*(1+float(_def_percent)/100)+_def)
 	speed=floor(speed_base*(1+float(_speed_percent)/100)+_speed)
 	if speed<speed_base/10:
 		speed=speed_base/10

@@ -13,7 +13,7 @@ var life=3 #持续时间 单位秒
 var description="这是一个buff"
 var isShow=true #是否在状态栏中显示
 var addType="single"  #叠加类型 single:单独，互不影响   cover：覆盖，新的顶替掉旧的 
-#					  #increase:增加层数，重置时间
+#					  #increase:增加层数，重置时间   
 var number=1  setget set_number #buff层数
 var number_max=5 #最大叠加层数
 func set_number(value):

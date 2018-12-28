@@ -24,5 +24,5 @@ func _init():
 	
 func use():
 	var healObj=HealObjFactory.createHeal(owner,owner,200)
-	Battle.heatProcess(healObj)
+	BattleProcess.healProcess(healObj)
 	pass
