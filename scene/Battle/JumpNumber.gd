@@ -10,18 +10,25 @@ func _ready():
 	
 	pass # Replace with function body.
 
-func start(dmgObj,pos:Vector2):
-	numberLabel.text=String(dmgObj.dmg)
-	#暴击伤害显示为红色
-	if dmgObj.isCrit:
-		scale=Vector2(2,2)
-		modulate=Color.red
-	position=pos
-	#魔法伤害显示为黄色
-	if dmgObj.type==1:
-		scale=Vector2(1.5,1.5)
-		modulate=Color.yellow
-	
+func start(obj,pos:Vector2):
+	#如果是伤害
+	if obj is DmgObj:
+		numberLabel.text=String(obj.dmg)
+		#暴击伤害显示为红色
+		if obj.isCrit:
+			scale=Vector2(2,2)
+			modulate=Color.red
+		position=pos
+		#魔法伤害显示为黄色
+		if obj.type==1:
+			scale=Vector2(1.5,1.5)
+			modulate=Color.yellow
+	#如果是治疗
+	if obj is HealObj:
+		numberLabel.text=String(obj.heal)
+		#显示为绿色
+		position=pos
+		modulate=Color.green
 	pass
 func _process(delta):
 	timer-=delta

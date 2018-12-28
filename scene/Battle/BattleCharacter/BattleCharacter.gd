@@ -168,6 +168,10 @@ func beHit(dmgObj):
 	yield(get_tree().create_timer(0.2),"timeout")
 	set_red(false)
 	pass
+#收到治疗
+func beHeal(healObj):
+	emit_signal("jumpNumber",healObj,position)
+	pass
 #闪避伤害
 func dodge():
 	#跳miss
@@ -312,6 +316,9 @@ func item_use(item):
 	#触发技能效果
 	emit_signal("jumpSkillMingzi",item.mingzi,position)
 	item.use()
+	#如果是消耗品 减少一次使用次数
+	if item.isConsume:
+		item.number-=1
 	#消耗品使用完后消失
 	if item.willDisappear:
 		item_remove(item)

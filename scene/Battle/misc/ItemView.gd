@@ -40,6 +40,7 @@ func start(item):
 		set_cost(item.cost)
 	isStart=true
 	#连接信号
+	item.connect("number_change",self,"on_number_change")
 	self.connect("pressed",self,"onPressed")
 	self.connect("mouse_entered",self,"onMouseEnter")
 	self.connect("mouse_exited",self,"onMouseExit")
@@ -69,7 +70,11 @@ func _process(delta):
 #-------------------
 func onPressed():
 	emit_signal("item_use",item)
-
+func on_number_change():
+	var text=item.mingzi
+	if item.isShowNumber:
+		text+="*"+String(item.number)
+	set_mingzi(text)
 #-----自身回调-----
 func _exit_tree():
 	if isMouseOn:

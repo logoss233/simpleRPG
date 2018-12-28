@@ -6,25 +6,25 @@ func _init():
 	title="狂战士" #称号
 	description=""
 	propertyList=[{
-		"hp":60,
+		"hp":100,
 		"mp":10,
-		"atk":20,
+		"atk":8,
 		"def":0,
-		"speed":20
+		"speed":5
 	},
 	{
-		"hp":120,
+		"hp":200,
 		"mp":10,
-		"atk":40,
+		"atk":16,
 		"def":0,
-		"speed":30
+		"speed":8
 	},
 	{
-		"hp":180,
+		"hp":300,
 		"mp":10,
-		"atk":60,
+		"atk":24,
 		"def":0,
-		"speed":40
+		"speed":10
 	}
 	]
 	

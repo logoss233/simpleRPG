@@ -16,24 +16,11 @@ func _ready():
 	#初始化team
 	team=Team.new()
 	var hero=Role_Hero.new()
-	hero.lv=3
+	hero.lv=1
 	team.role_append(hero)
+	var item=Item_LifeCloak.new()
+	team.item_append(item)
 	
-	var lion=Role_Lion.new()
-	team.role_append(lion)
-	
-	var berserker=Role_Berserker.new()
-	berserker.lv=2
-	team.role_append(berserker)
-	
-	var item=Item_BigSword.new()
-	team.item_append(item)
-	item=Item_ShieldScroll.new()
-	team.item_append(item)
-	item=Item_LightTrunch.new()
-	team.item_append(item)
-	item=Item_RoundShield.new()
-	team.item_append(item)
 	
 	#初始化地图
 	map.connect("enterSite",self,"onEnterSite")

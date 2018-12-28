@@ -7,7 +7,7 @@ var itemMap={} #skill数据类和显示类的映射
 
 var tscn_itemView=preload("res://scene/Battle/misc/ItemView.tscn")
 onready var titleLabel=$Panel/titleLabel
-onready var itemPlace=$Panel/itemPlace
+onready var itemPlace=$Panel/ScrollContainer/itemPlace
 #-------------初始化----------
 func start(_character):
 	character=_character

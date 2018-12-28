@@ -8,26 +8,26 @@ func _init():
 	description=""
 	propertyList=[{
 		"hp":30,
-		"mp":40,
-		"atk":10,
-		"def":6,
-		"speed":10
+		"mp":60,
+		"atk":3,
+		"def":2,
+		"speed":2
 	},
 	{
 		"hp":60,
-		"mp":70,
-		"atk":20,
-		"def":12,
-		"speed":10
+		"mp":90,
+		"atk":6,
+		"def":4,
+		"speed":5
 	},
 	{
 		"hp":90,
-		"mp":100,
+		"mp":120,
 		"atk":30,
-		"def":16,
-		"speed":10
+		"def":9,
+		"speed":7
 	}
 	]
 	
-	var skill=load("res://model/Skill/Skill_DeathFinger.gd").new()
+	var skill=Skill_DeathFinger.new()
 	skillList.append(skill)

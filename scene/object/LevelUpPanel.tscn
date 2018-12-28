@@ -44,13 +44,11 @@ margin_right = 673.0
 margin_bottom = 127.0
 
 [node name="rolePlace" type="HBoxContainer" parent="RoleListUI/ScrollContainer"]
-margin_right = 800.0
+margin_right = 110.0
 margin_bottom = 110.0
 alignment = 1
 
 [node name="RoleView" parent="RoleListUI/ScrollContainer/rolePlace" instance=ExtResource( 4 )]
-margin_left = 345.0
-margin_right = 455.0
 
 [node name="confirmButton" type="Button" parent="."]
 margin_left = 354.0

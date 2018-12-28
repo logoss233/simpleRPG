@@ -23,41 +23,58 @@ margin_bottom = 43.0
 custom_fonts/font = ExtResource( 2 )
 text = "技能:"
 
-[node name="skillViewPlace" type="HBoxContainer" parent="Panel"]
-editor/display_folded = true
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
 margin_left = 71.0
-margin_top = 12.0
-margin_right = 223.0
-margin_bottom = 52.0
+margin_top = 6.0
+margin_right = 1187.0
+margin_bottom = 68.0
+scroll_vertical_enabled = false
 
-[node name="SkillView" parent="Panel/skillViewPlace" instance=ExtResource( 3 )]
+[node name="skillViewPlace" type="HBoxContainer" parent="ScrollContainer"]
+editor/display_folded = true
+margin_right = 1272.0
+margin_bottom = 40.0
+
+[node name="SkillView" parent="ScrollContainer/skillViewPlace" instance=ExtResource( 3 )]
 margin_right = 112.0
 
-[node name="SkillView2" parent="Panel/skillViewPlace" instance=ExtResource( 3 )]
+[node name="SkillView2" parent="ScrollContainer/skillViewPlace" instance=ExtResource( 3 )]
 margin_left = 116.0
 margin_right = 228.0
 
-[node name="SkillView3" parent="Panel/skillViewPlace" instance=ExtResource( 3 )]
+[node name="SkillView3" parent="ScrollContainer/skillViewPlace" instance=ExtResource( 3 )]
 margin_left = 232.0
 margin_right = 344.0
 
-[node name="SkillView4" parent="Panel/skillViewPlace" instance=ExtResource( 3 )]
+[node name="SkillView4" parent="ScrollContainer/skillViewPlace" instance=ExtResource( 3 )]
 margin_left = 348.0
 margin_right = 460.0
 
-[node name="SkillView5" parent="Panel/skillViewPlace" instance=ExtResource( 3 )]
+[node name="SkillView5" parent="ScrollContainer/skillViewPlace" instance=ExtResource( 3 )]
 margin_left = 464.0
 margin_right = 576.0
 
-[node name="SkillView6" parent="Panel/skillViewPlace" instance=ExtResource( 3 )]
+[node name="SkillView6" parent="ScrollContainer/skillViewPlace" instance=ExtResource( 3 )]
 margin_left = 580.0
 margin_right = 692.0
 
-[node name="SkillView7" parent="Panel/skillViewPlace" instance=ExtResource( 3 )]
+[node name="SkillView7" parent="ScrollContainer/skillViewPlace" instance=ExtResource( 3 )]
 margin_left = 696.0
 margin_right = 808.0
 
-[node name="SkillView8" parent="Panel/skillViewPlace" instance=ExtResource( 3 )]
+[node name="SkillView8" parent="ScrollContainer/skillViewPlace" instance=ExtResource( 3 )]
 margin_left = 812.0
 margin_right = 924.0
+
+[node name="SkillView9" parent="ScrollContainer/skillViewPlace" instance=ExtResource( 3 )]
+margin_left = 928.0
+margin_right = 1040.0
+
+[node name="SkillView10" parent="ScrollContainer/skillViewPlace" instance=ExtResource( 3 )]
+margin_left = 1044.0
+margin_right = 1156.0
+
+[node name="SkillView11" parent="ScrollContainer/skillViewPlace" instance=ExtResource( 3 )]
+margin_left = 1160.0
+margin_right = 1272.0
 

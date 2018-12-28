@@ -8,7 +8,7 @@ var tscn_skillView=preload("res://scene/Battle/misc/SkillView.tscn")
 var skillViewPlace
 #-------------初始化----------
 func _ready():
-	skillViewPlace=$Panel/skillViewPlace
+	skillViewPlace=$ScrollContainer/skillViewPlace
 	
 	pass # Replace with function body.
 func start(_character):

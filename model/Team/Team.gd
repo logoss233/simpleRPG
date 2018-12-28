@@ -91,7 +91,7 @@ func role_append(role):
 	emit_signal("role_append",role)
 	role.connect("level_change",self,"on_role_level_change")
 	#重新计算物品栏大小
-	set_itemNumber_max(roleList.size())
+	set_itemNumber_max(roleList.size()+2)
 #移除队员
 func role_remove(role):
 	roleList.remove(role)
@@ -100,7 +100,7 @@ func role_remove(role):
 	calculateProperty()
 	emit_signal("role_remove",role)
 	#重新计算物品栏大小
-	set_itemNumber_max(roleList.size())
+	set_itemNumber_max(roleList.size()+2)
 #添加物品
 func item_append(item):
 	itemList.append(item)

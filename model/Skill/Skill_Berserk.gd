@@ -1,57 +1,58 @@
 extends Skill
+class_name Skill_Berserker
 
 func _init():
 	type=1 #主动技能
 	mingzi="狂战士"
-	description=["""cost:10 cd:20
-	攻击+50，
-	防御-50，
-	速度+50,
-	持续5秒
-	""",
-	"""cost:10 cd:15
-	攻击+75，
-	防御-75，
-	速度+75，
-	持续8秒
-	""",
-	"""cost:10 cd:10
-	攻击+100，
-	防御-100，
-	速度+100,
-	持续10秒
-	"""
+	descriptionList=["""cost:10 cd:15
+攻击+20，
+防御-15，
+速度+20,
+持续5秒
+""",
+"""cost:10 cd:13
+攻击+30，
+防御-20，
+速度+30，
+持续8秒
+""",
+"""cost:10 cd:11
+攻击+40，
+防御-25，
+速度+40,
+持续10秒
+"""
 	]
 	costList=[10,10,10]
-	cdList=[20,15,10]
+	cdList=[15,13,11]
 	
 	
 	
 func use():
 	#生成一个持续10秒的buff加到使用者身上
-	var buff=load("res://model/Buff/Buff.gd").new()
+	var buff=Buff.new()
 	buff.mingzi="狂战士lv"+String(lv)
 	match lv:
 		0:
 			buff.life=5
 			buff.property={
-			"atk":50,
-			"def":-50,
-			"speed":50
+			"atk":20,
+			"def":-15,
+			"speed":20
 	}
 		1:
 			buff.life=8
 			buff.property={
-			"atk":75,
-			"def":-75,
-			"speed":75
+			"atk":30,
+			"def":-20,
+			"speed":30
 	}
 		2:
 			buff.life=10
 			buff.property={
-			"atk":100,
-			"def":-100,
-			"speed":100
+			"atk":40,
+			"def":-25,
+			"speed":40
 	}
 	
 	buff.description=self.description

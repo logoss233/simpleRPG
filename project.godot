@@ -20,6 +20,11 @@ _global_script_classes=[ {
 "path": "res://scene/Battle/BattleCharacter/BattleCharacter.gd"
 }, {
 "base": "Node2D",
+"class": "BattleEnemy",
+"language": "GDScript",
+"path": "res://scene/Battle/BattleCharacter/BattleEnemy.gd"
+}, {
+"base": "Node2D",
 "class": "BattlePlayer",
 "language": "GDScript",
 "path": "res://scene/Battle/BattleCharacter/BattlePlayer.gd"
@@ -39,10 +44,30 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://model/EventArg/DmgObj.gd"
 }, {
+"base": "Reference",
+"class": "Enemy",
+"language": "GDScript",
+"path": "res://model/Enemy/Enemy.gd"
+}, {
+"base": "Reference",
+"class": "Enemy_Mouse",
+"language": "GDScript",
+"path": "res://model/Enemy/Enemy_Mouse.gd"
+}, {
+"base": "Enemy",
+"class": "Enemy_Slime",
+"language": "GDScript",
+"path": "res://model/Enemy/Enemy_Slime.gd"
+}, {
 "base": "Node2D",
 "class": "GameScene",
 "language": "GDScript",
 "path": "res://scene/GameScene.gd"
+}, {
+"base": "Reference",
+"class": "HealObj",
+"language": "GDScript",
+"path": "res://model/EventArg/HealObj.gd"
 }, {
 "base": "Reference",
 "class": "Item",
@@ -65,6 +90,26 @@ _global_script_classes=[ {
 "path": "res://model/Item/Item_BigSword.gd"
 }, {
 "base": "Reference",
+"class": "Item_DeddyDagger",
+"language": "GDScript",
+"path": "res://model/Item/Item_DeddyDagger.gd"
+}, {
+"base": "Reference",
+"class": "Item_GuardRing",
+"language": "GDScript",
+"path": "res://model/Item/Item_GuardRing.gd"
+}, {
+"base": "Reference",
+"class": "Item_HealTrunch",
+"language": "GDScript",
+"path": "res://model/Item/Item_HealTrunch.gd"
+}, {
+"base": "Reference",
+"class": "Item_LifeCloak",
+"language": "GDScript",
+"path": "res://model/Item/Item_LifeCloak.gd"
+}, {
+"base": "Reference",
 "class": "Item_LightTrunch",
 "language": "GDScript",
 "path": "res://model/Item/Item_LightTrunch.gd"
@@ -78,6 +123,11 @@ _global_script_classes=[ {
 "class": "Item_ShieldScroll",
 "language": "GDScript",
 "path": "res://model/Item/Item_ShieldScroll.gd"
+}, {
+"base": "Reference",
+"class": "Item_SpeedTruch",
+"language": "GDScript",
+"path": "res://model/Item/Item_SpeedTruch.gd"
 }, {
 "base": "Panel",
 "class": "LevelUpPanel",
@@ -139,6 +189,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://model/Role/Role_Lion.gd"
 }, {
+"base": "Reference",
+"class": "SimpleSkill",
+"language": "GDScript",
+"path": "res://model/Skill/SimpleSkill.gd"
+}, {
 "base": "Node2D",
 "class": "Site",
 "language": "GDScript",
@@ -150,9 +205,24 @@ _global_script_classes=[ {
 "path": "res://model/Skill/Skill.gd"
 }, {
 "base": "Reference",
+"class": "Skill_Berserker",
+"language": "GDScript",
+"path": "res://model/Skill/Skill_Berserk.gd"
+}, {
+"base": "Reference",
 "class": "Skill_Crit",
 "language": "GDScript",
 "path": "res://model/Skill/Skill_Crit.gd"
+}, {
+"base": "Reference",
+"class": "Skill_DeathFinger",
+"language": "GDScript",
+"path": "res://model/Skill/Skill_DeathFinger.gd"
+}, {
+"base": "Reference",
+"class": "Skill_LightGuard",
+"language": "GDScript",
+"path": "res://model/Skill/Skill_LightGuard.gd"
 }, {
 "base": "Control",
 "class": "StateUI",
@@ -187,18 +257,28 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "Battle": "",
 "BattleCharacter": "",
+"BattleEnemy": "",
 "BattlePlayer": "",
 "Buff": "",
 "DescriptionPanel": "",
 "DmgObj": "",
+"Enemy": "",
+"Enemy_Mouse": "",
+"Enemy_Slime": "",
 "GameScene": "",
+"HealObj": "",
 "Item": "",
 "ItemChoosePanel": "",
 "ItemUI": "",
 "Item_BigSword": "",
+"Item_DeddyDagger": "",
+"Item_GuardRing": "",
+"Item_HealTrunch": "",
+"Item_LifeCloak": "",
 "Item_LightTrunch": "",
 "Item_RoundShield": "",
 "Item_ShieldScroll": "",
+"Item_SpeedTruch": "",
 "LevelUpPanel": "",
 "Map": "",
 "MapPlayer": "",
@@ -211,9 +291,13 @@ _global_script_class_icons={
 "Role_Berserker": "",
 "Role_Hero": "",
 "Role_Lion": "",
+"SimpleSkill": "",
 "Site": "",
 "Skill": "",
+"Skill_Berserker": "",
 "Skill_Crit": "",
+"Skill_DeathFinger": "",
+"Skill_LightGuard": "",
 "StateUI": "",
 "Team": "",
 "Trigger": "",
@@ -235,6 +319,7 @@ Game="*res://autoload/Game.gd"
 TriggerSystem="*res://autoload/TriggerSystem.gd"
 DmgObjFactory="*res://autoload/DmgObjFactory.gd"
 Global="*res://autoload/Global.gd"
+HealObjFactory="*res://autoload/HealObjFactory.gd"
 
 [debug]
 

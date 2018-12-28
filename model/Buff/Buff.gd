@@ -18,7 +18,11 @@ var number=1  setget set_number #buff层数
 var number_max=5 #最大叠加层数
 func set_number(value):
 	number=value
+	number_change()
 	emit_signal("number_change")
+#重写用 层数变更要做的事
+func number_change():
+	pass
 #附加到目标上
 func start(target):
 	self.target=target

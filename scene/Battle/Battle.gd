@@ -5,8 +5,8 @@ class_name Battle
 signal win
 signal lose
 
-var player:BattleCharacter
-var enemy:BattleCharacter
+var player
+var enemy
 var playerStateUI
 var enemyStateUI
 var playerPropertyPanel
@@ -50,19 +50,18 @@ func start(team:Team):
 	player.set_number(team.get_number())
 	player.itemNumber_max=team.itemNumber_max
 	
-
-	enemy.mingzi="史莱姆"
-	enemy.face=-1
-	enemy.hp_max=2000
-	enemy.hp=2000
-	enemy.atk=15
-	enemy.def_base=100
-	enemy.def=100
-	enemy.speed=60
-	enemy.shield=60
-	enemy.set_image(load("res://image/enemy.png"))
-	var skill=load("res://model/Skill/Skill_Dodge.gd").new()
-	enemy.skillList.append(skill)
+	enemy.set_enemy(Enemy_Slime.new())
+#	enemy.mingzi="史莱姆"
+#	enemy.face=-1
+#	enemy.hp_max=400
+#	enemy.hp=400
+#	enemy.atk_base=60
+#	enemy.def_base=30
+#	enemy.speed_base=80
+#	enemy.shield=0
+#	enemy.set_image(load("res://image/enemy.png"))
+#	var skill=load("res://model/Skill/Skill_Dodge.gd").new()
+#	enemy.skillList.append(skill)
 	
 	
 	#注册信号侦听
@@ -86,8 +85,13 @@ func start(team:Team):
 	
 	player.start(self,enemy)
 	enemy.start(self,player)
+	
+	#发出战斗开始事件
+	TriggerSystem.sendEvent("battle_start",null)
 	pass
 
+func _process(delta):
+	TriggerSystem.sendEvent("process",delta)
 
 #------------回调-------------
 func onAttack(fromChara,toChara):
@@ -166,7 +170,10 @@ static func damageProcess(dmgObj):
 			dmgObj.dmg=floor(dmgObj.dmg*(1+ir))
 	else:
 		pass
-	#优先扣除护盾值，再扣除血
+	#如果dmg小于0，把它变成0
+	if dmgObj.dmg<0:
+		dmgObj.dmg=0
+	#伤害结算阶段 优先扣除护盾值，再扣除血
 	if to.shield>0:
 		if to.shield>=dmgObj.dmg:
 			to.shield-=dmgObj.dmg
@@ -179,7 +186,23 @@ static func damageProcess(dmgObj):
 	
 	#受到伤害
 	to.beHit(dmgObj)
+	#伤害之后事件
+	TriggerSystem.sendEvent("damage_after",dmgObj)
+	
 	
 	pass
-	
+static func heatProcess(healObj):
+	var from=healObj.from
+	var to=healObj.to
+	if to.state=="die" || from.state=="die":
+		return
+	#治疗开始前
+	TriggerSystem.sendEvent("heal_before",healObj)
+	#治疗
+	if healObj.heal<0:
+		healObj.heal=0
+	to.hp+=healObj.heal
+	#跳出治疗数字
+	to.beHeal(healObj)
+	pass
 	

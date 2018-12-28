@@ -18,7 +18,10 @@ func start(skill):
 	pass
 
 func set_mingzi():
-	mingziLabel.text=skill.mingzi+"Lv"+String(skill.lv)
+	if skill.lv>0:
+		mingziLabel.text=skill.mingzi+"Lv"+String(skill.lv)
+	else:
+		mingziLabel.text=skill.mingzi
 func set_type():
 	if skill.type==0:
 		typeLabel.text="被动"

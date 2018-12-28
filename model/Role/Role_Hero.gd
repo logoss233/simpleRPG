@@ -7,27 +7,28 @@ func _init():
 	title="勇者" #称号
 	description=""
 	propertyList=[{
-		"hp":100,
+		"hp":80,
 		"mp":30,
-		"atk":20,
+		"atk":6,
+		"def":4,
+		"speed":5
+	},
+	{
+		"hp":160,
+		"mp":60,
+		"atk":12,
+		"def":8,
+		"speed":10
+	},
+	{
+		"hp":240,
+		"mp":90,
+		"atk":18,
 		"def":12,
-		"speed":80
-	},
-	{
-		"hp":120,
-		"mp":40,
-		"atk":30,
-		"def":18,
-		"speed":100
-	},
-	{
-		"hp":140,
-		"mp":50,
-		"atk":40,
-		"def":24,
-		"speed":120
+		"speed":15
 	}
 	]
 	
-	var skill=load("res://model/Skill/Skill_Crit.gd").new()
+	var skill=Skill_LightGuard.new()
 	skillList.append(skill)
+	

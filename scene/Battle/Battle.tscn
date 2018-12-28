@@ -1,13 +1,14 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://scene/Battle/Battle.gd" type="Script" id=1]
 [ext_resource path="res://scene/Battle/BattleCharacter/BattlePlayer.tscn" type="PackedScene" id=2]
-[ext_resource path="res://scene/Battle/BattleCharacter/BattleCharacter.tscn" type="PackedScene" id=3]
-[ext_resource path="res://font/font_siteName.tres" type="DynamicFont" id=4]
-[ext_resource path="res://scene/Battle/StateUI.tscn" type="PackedScene" id=5]
-[ext_resource path="res://scene/Battle/PropertyPanel.tscn" type="PackedScene" id=6]
-[ext_resource path="res://scene/Battle/SkillUI.tscn" type="PackedScene" id=7]
-[ext_resource path="res://scene/Battle/ItemUI.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scene/Battle/BattleCharacter/BattleEnemy.gd" type="Script" id=3]
+[ext_resource path="res://icon.png" type="Texture" id=4]
+[ext_resource path="res://font/font_siteName.tres" type="DynamicFont" id=5]
+[ext_resource path="res://scene/Battle/StateUI.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scene/Battle/PropertyPanel.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scene/Battle/SkillUI.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scene/Battle/ItemUI.tscn" type="PackedScene" id=9]
 
 [node name="Battle" type="Node2D"]
 script = ExtResource( 1 )
@@ -24,8 +25,15 @@ color = Color( 0.52549, 0.596078, 0.521569, 1 )
 [node name="player" parent="characters" instance=ExtResource( 2 )]
 position = Vector2( 405.59, 403.441 )
 
-[node name="enemy" parent="characters" instance=ExtResource( 3 )]
+[node name="enemy" type="Node2D" parent="characters"]
+editor/display_folded = true
 position = Vector2( 874.271, 409.248 )
+script = ExtResource( 3 )
+
+[node name="Tween" type="Tween" parent="characters/enemy"]
+
+[node name="icon" type="Sprite" parent="characters/enemy"]
+texture = ExtResource( 4 )
 
 [node name="jumpNumberPlace" type="Node2D" parent="."]
 
@@ -41,34 +49,34 @@ margin_left = 607.0
 margin_top = 85.0
 margin_right = 654.0
 margin_bottom = 110.0
-custom_fonts/font = ExtResource( 4 )
+custom_fonts/font = ExtResource( 5 )
 text = "vs"
 
-[node name="playerStateUI" parent="ui" instance=ExtResource( 5 )]
+[node name="playerStateUI" parent="ui" instance=ExtResource( 6 )]
 
-[node name="enemyStateUI" parent="ui" instance=ExtResource( 5 )]
+[node name="enemyStateUI" parent="ui" instance=ExtResource( 6 )]
 margin_left = 714.0
 margin_top = 3.0
 margin_right = 754.0
 margin_bottom = 43.0
 
-[node name="playerPropertyPanel" parent="ui" instance=ExtResource( 6 )]
+[node name="playerPropertyPanel" parent="ui" instance=ExtResource( 7 )]
 margin_left = 51.0
 margin_top = 200.0
 margin_right = 91.0
 margin_bottom = 240.0
 
-[node name="enemyPropertyPanel" parent="ui" instance=ExtResource( 6 )]
+[node name="enemyPropertyPanel" parent="ui" instance=ExtResource( 7 )]
 margin_left = 1037.0
 margin_top = 194.0
 margin_right = 1077.0
 margin_bottom = 234.0
 
-[node name="SkillUI" parent="ui" instance=ExtResource( 7 )]
+[node name="SkillUI" parent="ui" instance=ExtResource( 8 )]
 margin_left = 50.0
 margin_top = 580.0
 margin_right = 90.0
 margin_bottom = 620.0
 
-[node name="ItemUI" parent="ui" instance=ExtResource( 8 )]
+[node name="ItemUI" parent="ui" instance=ExtResource( 9 )]
 

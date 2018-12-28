@@ -1,6 +1,7 @@
 #物品类
 extends Reference
 class_name Item
+signal number_change
 
 var type=0 #0不能使用 1可以使用
 var mingzi="贵族圆环"
@@ -11,7 +12,7 @@ var description="最大生命+10，最大魔法+10，攻击+10，防御+10，速
 var cost=0 #使用消耗魔法
 var cd=10 #冷却时间
 var cd_timer=0 #冷却计数
-var number=1 #使用次数
+var number=1 setget set_number#使用次数
 var isConsume=false #是不是消耗品 消耗品每用一次减少一点次数
 var willDisappear=false #使用次数用完后会不会消失
 var isShowNumber=false #是否显示使用次数
@@ -19,6 +20,9 @@ var isShowNumber=false #是否显示使用次数
 var canBattleUse=true #战斗中能否使用
 var canMapUse=false #大地图中能否使用  #暂时不做地图使用
 
+func set_number(value):
+	number=value
+	emit_signal("number_change")
 
 func use():
 	pass

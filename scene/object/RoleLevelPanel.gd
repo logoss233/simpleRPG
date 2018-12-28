@@ -3,7 +3,8 @@ class_name RoleLevelPanel
 
 var role
 
-var tscn_skillView=load("res://scene/Battle/misc/SkillLevelView.tscn")
+var tscn_skillLevelView=preload("res://scene/Battle/misc/SkillLevelView.tscn")
+var tscn_skillPassiveView=preload("res://scene/Battle/misc/PassiveSkillView.tscn")
 onready var mingziLabel=$mingziLabel
 onready var lvLabel=$lvLabel
 onready var titleLabel=$titleLabel
@@ -32,9 +33,14 @@ func set_role(_role,lv):
 		child.queue_free()
 	#添加技能显示
 	for skill in role.skillList:
-		var skillView=tscn_skillView.instance()
-		skillPlace.add_child(skillView)
-		skillView.start(skill,lv)
+		if skill.lv>0: #显示等级技能
+			var skillView=tscn_skillLevelView.instance()
+			skillPlace.add_child(skillView)
+			skillView.start(skill,lv)
+		else:  #显示简单技能
+			var skillView=tscn_skillPassiveView.instance()
+			skillPlace.add_child(skillView)
+			skillView.start(skill)
 		pass
 	
 	
