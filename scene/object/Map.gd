@@ -2,9 +2,9 @@
 extends Control
 class_name Map
 const START_POSITION=Vector2(65,360) #起始site的位置
-const END_POSITION=Vector2(2400,360) #结束site的位置
+const END_POSITION=Vector2(7200,360) #结束site的位置
 const ROAD_WIDTH=150 #路的宽度
-const ROAD_LONG=15 #走完路程要走几个site
+const ROAD_LONG=45 #走完路程要走几个site
 
 signal enterSite
 

@@ -4,11 +4,15 @@ class_name Enemy_StoneMan
 func _init():
 	mingzi="岩石傀儡"
 	img=load("res://image/stoneMan.png")
-	hp=2200
-	mp=220
-	atk=180
-	def=220
+	hp=3800
+	mp=200
+	atk=244
+	def=240
 	speed=150
+	
+
+	
+	
 	skillList=[TmpSkill.new()]
 	
 	

@@ -4,11 +4,12 @@ class_name Enemy_TreeMan
 func _init():
 	mingzi="树精"
 	img=load("res://image/treeMan.png")
-	hp=1500
-	mp=200
-	atk=120
+	hp=2500
+	mp=350
+	atk=200
 	def=100
 	speed=100
+	
 	skillList=[TmpSkill.new()]
 	
 	
@@ -17,7 +18,9 @@ class TmpSkill extends SimpleSkill:
 	func _init():
 		type=1
 		mingzi="缠绕"
-		description="减少对手50点速度，每秒造成50点伤害，持续5秒"
+		description="""减少对手50点速度，每秒造成50点伤害，持续5秒
+		cd:10  cost:50
+		"""
 		cost=50
 		cd=10
 		

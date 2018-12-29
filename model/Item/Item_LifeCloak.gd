@@ -5,10 +5,10 @@ func _init():
 	type=0
 	mingzi="生命斗篷"
 	property={
-		"hp":200
+		"hp":250
 	}
 	triggerList=[TmpTrigger.new()]
-	description="""最大生命值+200
+	description="""最大生命值+250
 	每3秒回复最大生命值2%的生命
 """
 	

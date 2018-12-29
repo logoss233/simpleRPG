@@ -51,7 +51,7 @@ func set_hp_max(value):
 	var origin=hp_max
 	hp_max=value
 	#最大生命值改变时，生命值按百分比改变
-	var tmp_hp=floor(hp*(float(hp_max)/origin))
+	var tmp_hp=ceil(hp*(float(hp_max)/origin))
 	if tmp_hp<=0:
 		tmp_hp=1
 	self.hp=tmp_hp
@@ -59,7 +59,7 @@ func set_hp_max(value):
 func set_mp_max(value):
 	var origin=mp_max
 	mp_max=value
-	self.mp=floor(mp*(float(mp_max)/origin))
+	self.mp=ceil(mp*(float(mp_max)/origin))
 	emit_signal("state_change")
 func set_atk(value):
 	atk=value

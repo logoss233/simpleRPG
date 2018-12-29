@@ -4,10 +4,10 @@ class_name Enemy_Bat
 func _init():
 	mingzi="吸血蝙蝠"
 	img=load("res://image/bat.png")
-	hp=900
+	hp=1000
 	mp=60
-	atk=80
-	def=60
+	atk=70
+	def=70
 	speed=160
 	skillList=[TmpSkill.new(),TmpSkill2.new()]
 	

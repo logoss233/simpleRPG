@@ -4,11 +4,11 @@ class_name Enemy_Cactus
 func _init():
 	mingzi="仙人掌拳击手"
 	img=load("res://image/cactus.png")
-	hp=1000
+	hp=1500
 	mp=40
-	atk=60
+	atk=80
 	def=50
-	speed=80
+	speed=110
 	skillList=[TmpSkill.new()]
 	
 	

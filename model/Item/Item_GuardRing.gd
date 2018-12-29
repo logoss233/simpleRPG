@@ -5,11 +5,11 @@ func _init():
 	type=0
 	mingzi="守护之戒"
 	property={
-		"def":10
+		"def":15
 	}
 	triggerList=[TmpTrigger.new()]
-	description="""防御+10
-进入战斗时，获得100点护盾
+	description="""防御+15
+进入战斗时，获得150点护盾
 """
 	
 	
@@ -20,4 +20,4 @@ class TmpTrigger extends Trigger:
 	func condition(dmgObj:DmgObj):
 		return true
 	func action(dmgObj:DmgObj):
-		character.shield+=100
+		character.shield+=150

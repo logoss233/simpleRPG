@@ -4,11 +4,11 @@ class_name Enemy_Skeleton
 func _init():
 	mingzi="骷髅战士"
 	img=load("res://image/skeleton.png")
-	hp=1200
+	hp=2200
 	mp=60
-	atk=100
-	def=70
-	speed=130
+	atk=130
+	def=100
+	speed=170
 	skillList=[TmpSkill.new()]
 	
 	

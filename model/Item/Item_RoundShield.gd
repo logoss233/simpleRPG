@@ -6,11 +6,11 @@ func _init():
 	mingzi="小圆盾"
 	property={}
 	triggerList=[]
-	description="""50%概率格挡30点普通攻击伤害
+	description="""65%概率格挡50点普通攻击伤害
 	"""
 	var trigger=Trigger_Block.new()
-	trigger.blockRate=50
-	trigger.reduce=20
+	trigger.blockRate=65
+	trigger.reduce=50
 	triggerList.append(trigger)
 	
 func use():

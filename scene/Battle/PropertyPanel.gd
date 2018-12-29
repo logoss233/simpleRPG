@@ -53,6 +53,10 @@ func passiveSkill_init():
 	for skill in character.skillList:
 		if skill.type==0:
 			passiveSkill_add(skill)
+		else:
+		#如果是敌人，把主动技能也添加到显示面板
+			if character is BattleEnemy:
+				passiveSkill_add(skill)
 func passiveSkill_add(skill):
 	var skillView=tscn_passiveSkillView.instance()
 	buffPlace.add_child(skillView)

@@ -4,11 +4,12 @@ class_name Enemy_Stone
 func _init():
 	mingzi="石像"
 	img=load("res://image/stone.png")
-	hp=2100
+	hp=4500
 	mp=300
-	atk=190
-	def=220
-	speed=100
+	atk=260
+	def=280
+	speed=170
+
 	skillList=[TmpSkill.new()]
 	
 	
@@ -22,10 +23,13 @@ class TmpSkill extends SimpleSkill:
 		防御-20%
 		速度-20%
 		持续15秒
+		cd:15  cost:50
 		"""
 		cd=15
+		cost=50
 	func use():
 		var dmgObj=DmgObjFactory.createMagicDmg(owner,owner.oppent,700)
+		BattleProcess.damageProcess(dmgObj)
 		var buff=Buff.new()
 		buff.mingzi="神秘射线"
 		buff.life=15

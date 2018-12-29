@@ -1,13 +1,26 @@
 extends Skill
+class_name Skill_GodPower
 
 func _init():
 	type=1
 	mingzi="神之力量"
-	description="""cost:20,cd50
-	攻击+1000，这下NB了
+	descriptionList=["""cost:50,cd25
+	攻击+50%，这下NB了
+	持续7秒
+	""",
 	"""
-	cost=20
-	cd=50
+	cost:70,cd30
+	攻击+100%，这下NB了
+	持续7秒
+	""",
+	"""
+	cost:90,cd30
+	攻击+150%，这下NB了
+	持续
+	"""
+	]
+	cost=50
+	cd=30
 	
 	
 	
@@ -16,14 +29,10 @@ func use():
 	var buff=load("res://model/Buff/Buff.gd").new()
 	buff.mingzi="神之力量"
 	buff.life=7
-	buff.description="""
-	攻击+1000，这下NB了
-	"""
+	buff.description="攻击+"+String(lv*50)+"%,这下NB了"
 	buff.property={
-		"atk":1000
+		"atk_percent":lv*50
 	}
 	buff.isShow=true
 	buff.addType="single"
-	var trigger=Trigger_Crit.new()
-	buff.triggerList.append(trigger)
 	owner.buff_append(buff)

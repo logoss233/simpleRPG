@@ -3,7 +3,6 @@ class_name Role_Lion
 
 func _init():
 	mingzi="莱恩" #名字
-	lv=1 #等级 最多3级
 	title="恶魔巫师" #称号
 	description=""
 	propertyList=[{

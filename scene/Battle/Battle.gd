@@ -33,7 +33,7 @@ func _ready():
 	
 
 
-func start(team:Team):
+func start(team:Team,_enemy):
 	#初始化角色的参数
 	player.mingzi="勇者小队"
 	player.face=1
@@ -61,7 +61,9 @@ func start(team:Team):
 	#enemy.set_enemy(Enemy_FlyFish.new())
 	#enemy.set_enemy(Enemy_Rider.new())
 	#enemy.set_enemy(Enemy_StoneMan.new())
-	enemy.set_enemy(Enemy_Stone.new())
+	#enemy.set_enemy(Enemy_Stone.new())
+	enemy.set_enemy(_enemy)
+	
 	#随机给敌人的技能加上几秒冷却
 	for skill in enemy.skillList:
 		if skill.type==1:

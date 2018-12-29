@@ -1,4 +1,5 @@
 extends Skill
+class_name Skill_Dodge
 
 func _init():
 	type=0
@@ -19,3 +20,5 @@ func _init():
 	trigger=Trigger_Dodge.new()
 	trigger.dodgeRate=30
 	triggerListList[2].append(trigger)
+	
+	

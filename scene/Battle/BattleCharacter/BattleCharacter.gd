@@ -280,6 +280,12 @@ func skill_use(skill):
 	if skill.cd_timer>0 ||skill.cost>mp:
 		return
 	#使用技能
+	#技能使用前
+	var skillObj={
+		"skill":skill,
+		"user":self #使用者
+	}
+	TriggerSystem.sendEvent("skill_before",skillObj)
 	#减少魔法值
 	self.mp-=skill.cost
 	#技能进入冷却
@@ -287,6 +293,9 @@ func skill_use(skill):
 	#触发技能效果
 	emit_signal("jumpSkillMingzi",skill.mingzi,position)
 	skill.use()
+	#发出使用技能后事件
+	TriggerSystem.sendEvent("skill_after",skillObj)
+	
 #初始化物品
 func item_init():
 	for item in itemList:

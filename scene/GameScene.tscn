@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://scene/GameScene.gd" type="Script" id=1]
 [ext_resource path="res://scene/object/Map.tscn" type="PackedScene" id=2]
@@ -7,25 +7,32 @@
 [ext_resource path="res://scene/object/TeamPropertyPanel.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scene/object/RoleListUI.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scene/object/RolePanel.tscn" type="PackedScene" id=7]
-[ext_resource path="res://scene/object/LevelUpPanel.tscn" type="PackedScene" id=8]
-[ext_resource path="res://scene/Battle/DescriptionPanel.tscn" type="PackedScene" id=9]
+[ext_resource path="res://font/font_siteName.tres" type="DynamicFont" id=8]
+[ext_resource path="res://theme/theme_skillButton.tres" type="Theme" id=9]
+[ext_resource path="res://scene/object/LevelUpPanel.tscn" type="PackedScene" id=10]
+[ext_resource path="res://scene/Battle/DescriptionPanel.tscn" type="PackedScene" id=11]
 
 [node name="GameScene" type="Node2D"]
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_right = 1345.0
 margin_bottom = 635.0
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Map" parent="ScrollContainer" instance=ExtResource( 2 )]
-margin_right = 2500.0
+margin_right = 7400.0
 margin_bottom = 600.0
-rect_min_size = Vector2( 2500, 600 )
+rect_min_size = Vector2( 7400, 600 )
 
 [node name="ui" type="Control" parent="."]
-editor/display_folded = true
 margin_right = 40.0
 margin_bottom = 40.0
 
@@ -54,26 +61,137 @@ margin_bottom = 54.0
 [node name="RolePanel" parent="ui" instance=ExtResource( 7 )]
 visible = false
 
+[node name="instructionPanel" type="WindowDialog" parent="ui"]
+editor/display_folded = true
+margin_left = 223.0
+margin_top = 127.0
+margin_right = 742.0
+margin_bottom = 620.0
+
+[node name="Label" type="Label" parent="ui/instructionPanel"]
+margin_left = 224.0
+margin_top = 30.0
+margin_right = 288.0
+margin_bottom = 58.0
+custom_fonts/font = ExtResource( 8 )
+text = "说明"
+
+[node name="Label3" type="Label" parent="ui/instructionPanel"]
+margin_left = 44.0
+margin_top = 85.0
+margin_right = 108.0
+margin_bottom = 113.0
+custom_fonts/font = ExtResource( 8 )
+text = "地点说明："
+
+[node name="Label4" type="Label" parent="ui/instructionPanel"]
+margin_left = 45.0
+margin_top = 121.0
+margin_right = 170.0
+margin_bottom = 149.0
+custom_fonts/font = ExtResource( 8 )
+text = "怪物："
+
+[node name="Label5" type="Label" parent="ui/instructionPanel"]
+margin_left = 39.0
+margin_top = 247.0
+margin_right = 164.0
+margin_bottom = 275.0
+custom_fonts/font = ExtResource( 8 )
+text = "村落："
+
+[node name="Label7" type="Label" parent="ui/instructionPanel"]
+margin_left = 41.0
+margin_top = 285.0
+margin_right = 166.0
+margin_bottom = 313.0
+custom_fonts/font = ExtResource( 8 )
+text = "宝物："
+
+[node name="Label9" type="Label" parent="ui/instructionPanel"]
+margin_left = 39.0
+margin_top = 326.0
+margin_right = 164.0
+margin_bottom = 354.0
+custom_fonts/font = ExtResource( 8 )
+text = "温泉："
+
+[node name="Label2" type="Label" parent="ui/instructionPanel"]
+margin_left = 113.0
+margin_top = 122.0
+margin_right = 491.0
+margin_bottom = 238.0
+custom_fonts/font = ExtResource( 8 )
+text = "和一个敌人战斗，胜利后升级一位队友。战斗结束时回复25%生命和魔法。正在冷却中的技能和物品减少50%冷却时间。护盾会清零。"
+autowrap = true
+
+[node name="Label6" type="Label" parent="ui/instructionPanel"]
+margin_left = 117.0
+margin_top = 246.0
+margin_right = 484.0
+margin_bottom = 299.0
+custom_fonts/font = ExtResource( 8 )
+text = "从3个角色中选择一个招募。
+"
+autowrap = true
+
+[node name="Label8" type="Label" parent="ui/instructionPanel"]
+margin_left = 117.0
+margin_top = 283.0
+margin_right = 484.0
+margin_bottom = 336.0
+custom_fonts/font = ExtResource( 8 )
+text = "从3个物品中选择一个获得。
+"
+autowrap = true
+
+[node name="Label10" type="Label" parent="ui/instructionPanel"]
+margin_left = 119.0
+margin_top = 320.0
+margin_right = 486.0
+margin_bottom = 373.0
+custom_fonts/font = ExtResource( 8 )
+text = "回复所有生命和魔法。
+"
+autowrap = true
+
+[node name="instructionButton" type="Button" parent="ui"]
+margin_left = 28.0
+margin_top = 156.0
+margin_right = 175.0
+margin_bottom = 222.0
+theme = ExtResource( 9 )
+custom_fonts/font = ExtResource( 8 )
+text = "说明"
+
 [node name="CanvasLayer2" type="CanvasLayer" parent="."]
 
 [node name="eventPlace" type="Control" parent="CanvasLayer2"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="PopupPanel" type="Control" parent="CanvasLayer2"]
+editor/display_folded = true
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_top = -2.0
 margin_right = 7.0
-margin_bottom = -5.0
+margin_bottom = -7.0
 mouse_filter = 2
+__meta__ = {
+"_edit_lock_": true
+}
 
-[node name="LevelUpPanel" parent="CanvasLayer2/PopupPanel" instance=ExtResource( 8 )]
+[node name="LevelUpPanel" parent="CanvasLayer2/PopupPanel" instance=ExtResource( 10 )]
 visible = false
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="DescriptionPanel" parent="CanvasLayer" instance=ExtResource( 9 )]
+[node name="DescriptionPanel" parent="CanvasLayer" instance=ExtResource( 11 )]
 visible = false
 margin_left = 457.0
 margin_top = 190.0
